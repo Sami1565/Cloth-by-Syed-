@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #d4af37;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+  }
+}
+
+@layer utilities {
+  .text-gold-400 {
+    color: #d4af37;
+  }
+  .bg-gold-500 {
+    background-color: #d4af37;
+  }
+  .hover\:text-gold-300:hover {
+    color: #c5a028;
+  }
+  .hover\:bg-gold-400:hover {
+    background-color: #c5a028;
+  }
+  .border-gold-400\/20 {
+    border-color: rgba(212, 175, 55, 0.2);
+  }
+}
