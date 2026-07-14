@@ -1,0 +1,142 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install --legacy-peer-deps",
+  "framework": "nextjs",
+  
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "memory": 1024
+      }
+    }
+  ],
+  
+  "routes": [
+    {
+      "src": "/_next/static/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/_next/static/$1"
+    },
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=86400"
+      },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico",
+      "headers": {
+        "cache-control": "public, max-age=86400"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  
+  "images": {
+    "sizes": [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    "formats": ["image/avif", "image/webp"],
+    "domains": ["images.unsplash.com", "cdn.shopify.com"],
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "**.unsplash.com",
+        "port": "",
+        "pathname": "/**"
+      }
+    ]
+  },
+  
+  "env": {
+    "NODE_ENV": "production",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "@stripe_publishable_key",
+    "STRIPE_SECRET_KEY": "@stripe_secret_key",
+    "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY": "@google_maps_api_key",
+    "NEXT_PUBLIC_GOOGLE_CLIENT_ID": "@google_client_id",
+    "NEXT_PUBLIC_VERCEL_URL": "https://cloth-by-syed.vercel.app"
+  },
+  
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  
+  "redirects": [
+    {
+      "source": "/old-path",
+      "destination": "/new-path",
+      "statusCode": 301
+    }
+  ],
+  
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "api/webhook.js": {
+      "maxDuration": 120,
+      "memory": 1024
+    }
+  },
+  
+  "crons": [
+    {
+      "path": "/api/cron/inventory-update",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/analytics",
+      "schedule": "0 0 * * *"
+    }
+  ],
+  
+  "cleanUrls": true,
+  
+  "trailingSlash": false,
+  
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "develop": true,
+      "staging": false
+    }
+  }
+}
