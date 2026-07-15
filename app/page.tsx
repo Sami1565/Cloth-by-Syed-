@@ -127,13 +127,16 @@ export default function Home() {
           </div>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-8 text-sm font-light">
-            <a href="#" className="hover:text-gold-300 transition">Home</a>
-            <a href="#" className="hover:text-gold-300 transition">Shop</a>
-            <a href="#" className="hover:text-gold-300 transition">Collections</a>
-            <a href="#" className="hover:text-gold-300 transition">About</a>
-            <a href="#" className="hover:text-gold-300 transition">Contact</a>
-          </nav>
+          import Link from 'next/link'
+
+// Then in the nav:
+<nav className="hidden md:flex gap-8 text-sm font-light">
+  <Link href="/" className="hover:text-gold-300 transition">Home</Link>
+  <Link href="/shop" className="hover:text-gold-300 transition">Shop</Link>
+  <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
+  <Link href="/about" className="hover:text-gold-300 transition">About</Link>
+  <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
+</nav>
           
           {/* Right Icons */}
           <div className="flex items-center gap-4">
