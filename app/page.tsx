@@ -233,7 +233,7 @@ export default function Home() {
                 <Link href="/signup" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition">
                   Create Account
                 </Link>
-                <Link href="/admin" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition rounded-b-xl border-t border-white/10">
+                <Link href="/admin-login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition rounded-b-xl border-t border-white/10">
                   Admin Panel
                 </Link>
               </div>
@@ -265,7 +265,7 @@ export default function Home() {
               <div className="border-t border-white/10 pt-4">
                 <Link href="/login" className="block py-2 text-white/80 hover:text-gold-400 transition">Sign In</Link>
                 <Link href="/signup" className="block py-2 text-white/80 hover:text-gold-400 transition">Create Account</Link>
-                <Link href="/admin" className="block py-2 text-white/80 hover:text-gold-400 transition">Admin Panel</Link>
+                <Link href="/admin-login" className="block py-2 text-gold-400/70 hover:text-gold-400 transition">Admin Panel</Link>
               </div>
             </div>
           </motion.div>
@@ -474,7 +474,7 @@ export default function Home() {
             <p className="text-white/80 font-medium">Info</p>
             <Link href="/about" className="hover:text-white/80 cursor-pointer block">About</Link>
             <Link href="/contact" className="hover:text-white/80 cursor-pointer block">Contact</Link>
-            <Link href="/admin" className="hover:text-gold-400 cursor-pointer block text-gold-400/50">Admin Panel</Link>
+            <Link href="/admin-login" className="hover:text-gold-400 cursor-pointer block text-gold-400/50">Admin Panel</Link>
           </div>
           <div>
             <p className="text-white/80 font-medium">Follow</p>
