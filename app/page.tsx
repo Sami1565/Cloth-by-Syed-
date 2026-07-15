@@ -62,6 +62,28 @@ const products = [
     rating: 4.6, 
     reviews: 29 
   },
+  { 
+    id: 5, 
+    name: 'Silk Blouse', 
+    price: 119, 
+    category: 'Women', 
+    color: 'Cream', 
+    sizes: ['XS','S','M','L'],
+    image: 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=400&h=500&fit=crop', 
+    rating: 4.9, 
+    reviews: 47 
+  },
+  { 
+    id: 6, 
+    name: 'Leather Belt', 
+    price: 89, 
+    category: 'Accessories', 
+    color: 'Brown', 
+    sizes: ['S','M','L'],
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop', 
+    rating: 4.5, 
+    reviews: 33 
+  },
 ];
 
 // Product Card Component
@@ -112,6 +134,57 @@ function ProductCard({ product, onQuickView }: any) {
   );
 }
 
+// Quick View Modal
+function QuickViewModal({ product, onClose }: any) {
+  if (!product) return null;
+  
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }} 
+      exit={{ opacity: 0 }} 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+    >
+      <motion.div 
+        initial={{ scale: 0.9 }} 
+        animate={{ scale: 1 }} 
+        className="bg-zinc-900 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 border border-gold-400/20 shadow-2xl"
+      >
+        <div className="flex justify-between items-start">
+          <h2 className="text-2xl font-bold text-white">{product.name}</h2>
+          <button onClick={onClose} className="text-white/50 hover:text-white text-2xl">
+            <FaTimes />
+          </button>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 mt-6">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="rounded-2xl w-full h-80 object-cover" 
+          />
+          <div>
+            <p className="text-gold-400 text-3xl font-bold">${product.price}</p>
+            <p className="text-white/60 mt-2">Category: {product.category}</p>
+            <div className="flex gap-2 mt-4 flex-wrap">
+              {product.sizes.map((size: string) => (
+                <span key={size} className="px-3 py-1 rounded-full bg-white/10 text-white/80 text-sm border border-white/10">
+                  {size}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4">
+              <p className="text-white/60 text-sm">Color: {product.color}</p>
+            </div>
+            <button className="mt-6 w-full py-3 rounded-full bg-gold-400 text-black font-semibold hover:bg-gold-300 transition">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // Main Home Component
 export default function Home() {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
@@ -136,7 +209,7 @@ export default function Home() {
             <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
           </nav>
           
-          {/* Right Icons */}
+          {/* Right Icons with Account Dropdown */}
           <div className="flex items-center gap-4">
             <FaSearch className="text-white/40 hover:text-gold-300 transition cursor-pointer" />
             <FaHeart className="text-white/40 hover:text-red-400 transition cursor-pointer hidden sm:block" />
@@ -146,9 +219,27 @@ export default function Home() {
                 3
               </span>
             </div>
-            <button className="px-4 py-1.5 rounded-full bg-gold-400 text-black text-sm font-medium hover:bg-gold-300 transition hidden sm:block">
-              Sign In
-            </button>
+            
+            {/* Account Dropdown */}
+            <div className="relative group">
+              <button className="px-4 py-1.5 rounded-full bg-gold-400 text-black text-sm font-medium hover:bg-gold-300 transition flex items-center gap-2">
+                <FaUser className="text-sm" />
+                <span className="hidden sm:inline">Account</span>
+              </button>
+              <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-xl border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <Link href="/login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition rounded-t-xl">
+                  Sign In
+                </Link>
+                <Link href="/signup" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition">
+                  Create Account
+                </Link>
+                <Link href="/admin" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition rounded-b-xl border-t border-white/10">
+                  Admin Panel
+                </Link>
+              </div>
+            </div>
+            
+            {/* Mobile Menu Button */}
             <button 
               className="md:hidden text-white/60 hover:text-white"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -171,9 +262,11 @@ export default function Home() {
               <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
               <Link href="/about" className="hover:text-gold-300 transition">About</Link>
               <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
-              <button className="px-4 py-2 rounded-full bg-gold-400 text-black text-sm font-medium hover:bg-gold-300 transition w-full">
-                Sign In
-              </button>
+              <div className="border-t border-white/10 pt-4">
+                <Link href="/login" className="block py-2 text-white/80 hover:text-gold-400 transition">Sign In</Link>
+                <Link href="/signup" className="block py-2 text-white/80 hover:text-gold-400 transition">Create Account</Link>
+                <Link href="/admin" className="block py-2 text-white/80 hover:text-gold-400 transition">Admin Panel</Link>
+              </div>
             </div>
           </motion.div>
         )}
@@ -278,14 +371,93 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Categories Section */}
+      <section className="py-16 px-4 max-w-7xl mx-auto">
+        <h2 className="text-2xl font-light tracking-widest text-center mb-12">
+          SHOP BY <span className="text-gold-400">CATEGORY</span>
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {['Men', 'Women', 'Accessories', 'Sale'].map((category) => (
+            <motion.div 
+              key={category}
+              whileHover={{ scale: 1.05 }}
+              className="relative h-48 rounded-2xl overflow-hidden cursor-pointer group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-gold-400/20 to-black/80" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-2xl font-light tracking-widest text-white/90 group-hover:text-gold-400 transition">
+                  {category}
+                </span>
+              </div>
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-gold-400/40 rounded-2xl transition" />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-16 px-4 max-w-5xl mx-auto">
+        <h2 className="text-2xl font-light tracking-widest text-center mb-12">
+          VOICES OF <span className="text-gold-400">LUXE</span>
+        </h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { name: 'Elena V.', text: 'The quality is unmatched. Feels like wearing art.', role: 'Fashion Editor' },
+            { name: 'Marcus R.', text: '3D viewer made me buy instantly. Incredible experience.', role: 'Tech Lead' },
+            { name: 'Sophia L.', text: 'Sustainable luxury. My new favorite brand.', role: 'Designer' },
+          ].map((t, i) => (
+            <motion.div 
+              key={i} 
+              whileHover={{ scale: 1.02 }} 
+              className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/5 hover:border-gold-400/20 transition"
+            >
+              <p className="text-white/70 italic text-sm">"{t.text}"</p>
+              <p className="text-gold-400 font-medium mt-4">{t.name}</p>
+              <p className="text-white/30 text-xs">{t.role}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Instagram Gallery */}
+      <section className="py-16 px-4 max-w-7xl mx-auto">
+        <h2 className="text-2xl font-light tracking-widest text-center mb-12">
+          FOLLOW US <span className="text-gold-400">@LUXE</span>
+        </h2>
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
+          {[1,2,3,4,5,6].map((i) => (
+            <motion.div 
+              key={i}
+              whileHover={{ scale: 1.05 }}
+              className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg overflow-hidden cursor-pointer"
+            >
+              <div className="w-full h-full bg-white/5 flex items-center justify-center text-white/20 text-xs">
+                📸
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="py-16 px-4 border-t border-white/5">
+        <div className="max-w-xl mx-auto text-center">
+          <h3 className="text-2xl font-light tracking-widest">JOIN THE <span className="text-gold-400">MOVEMENT</span></h3>
+          <p className="text-white/40 text-sm mt-2">Subscribe for exclusive drops and 3D experiences</p>
+          <div className="flex mt-6 bg-white/5 backdrop-blur-sm rounded-full overflow-hidden border border-white/10">
+            <input 
+              type="email" 
+              placeholder="Your email" 
+              className="flex-1 bg-transparent px-6 py-4 text-white/80 outline-none text-sm" 
+            />
+            <button className="px-8 bg-gold-400 text-black font-medium hover:bg-gold-300 transition">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      // In the footer section, add this link:
-<div>
-  <p className="text-white/80 font-medium">Info</p>
-  <Link href="/about" className="hover:text-white/80 cursor-pointer block">About</Link>
-  <Link href="/contact" className="hover:text-white/80 cursor-pointer block">Contact</Link>
-  <Link href="/admin" className="hover:text-gold-400 cursor-pointer block text-gold-400/50">Admin Panel</Link>
-</div>
       <footer className="border-t border-white/5 py-12 px-4 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white/50 text-sm">
           <div>
@@ -302,14 +474,24 @@ export default function Home() {
             <p className="text-white/80 font-medium">Info</p>
             <Link href="/about" className="hover:text-white/80 cursor-pointer block">About</Link>
             <Link href="/contact" className="hover:text-white/80 cursor-pointer block">Contact</Link>
+            <Link href="/admin" className="hover:text-gold-400 cursor-pointer block text-gold-400/50">Admin Panel</Link>
           </div>
           <div>
             <p className="text-white/80 font-medium">Follow</p>
             <p className="hover:text-white/80 cursor-pointer">Instagram</p>
             <p className="hover:text-white/80 cursor-pointer">Twitter</p>
+            <p className="hover:text-white/80 cursor-pointer">YouTube</p>
           </div>
         </div>
       </footer>
+
+      {/* Quick View Modal */}
+      {quickViewProduct && (
+        <QuickViewModal 
+          product={quickViewProduct} 
+          onClose={() => setQuickViewProduct(null)} 
+        />
+      )}
     </main>
   )
 }
