@@ -1,5 +1,334 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}
+
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}VV
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
+    if (!isAuthenticated) {
+      router.push('/admin-login')
+    } else {
+      setIsLoading(false)
+    }
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-white/50">Loading...</div>
+      </div>
+    )
+  }
+
+  // Your page content here...
+}
+'use client'
+
 import { useState } from 'react'
 import { FiSearch, FiMail, FiUser } from 'react-icons/fi'
 
