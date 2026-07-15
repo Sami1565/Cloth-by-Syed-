@@ -45,8 +45,8 @@ export default function AdminOrders() {
     return matchesSearch && matchesStatus
   })
 
-  // Get unique statuses for filter
-  const statuses = ['All', ...new Set(orders.map(o => o.status))]
+  // Get unique statuses for filter - FIXED
+  const statuses = ['All', ...Array.from(new Set(orders.map(o => o.status)))]
 
   // View order details
   const viewOrder = (order: any) => {
