@@ -45,8 +45,8 @@ export default function AdminCustomers() {
     return matchesSearch && matchesStatus
   })
 
-  // Get unique statuses for filter
-  const statuses = ['All', ...new Set(customers.map(c => c.status))]
+  // Get unique statuses for filter - FIXED
+  const statuses = ['All', ...Array.from(new Set(customers.map(c => c.status)))]
 
   // Handle view customer
   const viewCustomer = (customer: any) => {
