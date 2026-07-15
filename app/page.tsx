@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { 
   FaShoppingBag, 
@@ -121,22 +122,19 @@ export default function Home() {
       {/* Header */}
       <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <h1 className="text-2xl font-bold text-gold-400">LUXE</h1>
             <span className="text-[10px] tracking-[0.3em] text-white/40 uppercase hidden sm:inline">Studio</span>
-          </div>
+          </Link>
           
           {/* Desktop Navigation */}
-          import Link from 'next/link'
-
-// Then in the nav:
-<nav className="hidden md:flex gap-8 text-sm font-light">
-  <Link href="/" className="hover:text-gold-300 transition">Home</Link>
-  <Link href="/shop" className="hover:text-gold-300 transition">Shop</Link>
-  <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
-  <Link href="/about" className="hover:text-gold-300 transition">About</Link>
-  <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
-</nav>
+          <nav className="hidden md:flex gap-8 text-sm font-light">
+            <Link href="/" className="hover:text-gold-300 transition">Home</Link>
+            <Link href="/shop" className="hover:text-gold-300 transition">Shop</Link>
+            <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
+            <Link href="/about" className="hover:text-gold-300 transition">About</Link>
+            <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
+          </nav>
           
           {/* Right Icons */}
           <div className="flex items-center gap-4">
@@ -168,11 +166,11 @@ export default function Home() {
             className="md:hidden bg-black/95 backdrop-blur-md border-b border-white/10 py-4 px-4"
           >
             <div className="flex flex-col gap-4">
-              <a href="#" className="hover:text-gold-300 transition">Home</a>
-              <a href="#" className="hover:text-gold-300 transition">Shop</a>
-              <a href="#" className="hover:text-gold-300 transition">Collections</a>
-              <a href="#" className="hover:text-gold-300 transition">About</a>
-              <a href="#" className="hover:text-gold-300 transition">Contact</a>
+              <Link href="/" className="hover:text-gold-300 transition">Home</Link>
+              <Link href="/shop" className="hover:text-gold-300 transition">Shop</Link>
+              <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
+              <Link href="/about" className="hover:text-gold-300 transition">About</Link>
+              <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
               <button className="px-4 py-2 rounded-full bg-gold-400 text-black text-sm font-medium hover:bg-gold-300 transition w-full">
                 Sign In
               </button>
@@ -209,9 +207,9 @@ export default function Home() {
             transition={{ delay: 0.9 }} 
             className="mt-10 flex flex-wrap justify-center gap-4"
           >
-            <a href="#" className="px-10 py-4 rounded-full bg-gold-400 text-black font-medium hover:bg-gold-300 transition shadow-xl shadow-gold-400/20">
+            <Link href="/shop" className="px-10 py-4 rounded-full bg-gold-400 text-black font-medium hover:bg-gold-300 transition shadow-xl shadow-gold-400/20">
               Explore Collection
-            </a>
+            </Link>
             <a href="#" className="px-10 py-4 rounded-full border border-white/20 text-white/80 hover:bg-white/10 transition">
               View in 3D
             </a>
@@ -265,9 +263,9 @@ export default function Home() {
       <section className="py-12 px-4 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-10">
           <h2 className="text-2xl font-light tracking-widest">NEW <span className="text-gold-400">ARRIVALS</span></h2>
-          <a href="#" className="text-white/40 hover:text-gold-300 text-sm flex items-center gap-1 transition">
+          <Link href="/shop" className="text-white/40 hover:text-gold-300 text-sm flex items-center gap-1 transition">
             View All <FaArrowRight />
-          </a>
+          </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {products.map((product) => (
@@ -289,21 +287,19 @@ export default function Home() {
           </div>
           <div>
             <p className="text-white/80 font-medium">Shop</p>
-            <p className="hover:text-white/80 cursor-pointer">Men</p>
-            <p className="hover:text-white/80 cursor-pointer">Women</p>
-            <p className="hover:text-white/80 cursor-pointer">Accessories</p>
+            <Link href="/shop" className="hover:text-white/80 cursor-pointer block">All Products</Link>
+            <Link href="/collections/men" className="hover:text-white/80 cursor-pointer block">Men</Link>
+            <Link href="/collections/women" className="hover:text-white/80 cursor-pointer block">Women</Link>
           </div>
           <div>
             <p className="text-white/80 font-medium">Info</p>
-            <p className="hover:text-white/80 cursor-pointer">About</p>
-            <p className="hover:text-white/80 cursor-pointer">Contact</p>
-            <p className="hover:text-white/80 cursor-pointer">Careers</p>
+            <Link href="/about" className="hover:text-white/80 cursor-pointer block">About</Link>
+            <Link href="/contact" className="hover:text-white/80 cursor-pointer block">Contact</Link>
           </div>
           <div>
             <p className="text-white/80 font-medium">Follow</p>
             <p className="hover:text-white/80 cursor-pointer">Instagram</p>
             <p className="hover:text-white/80 cursor-pointer">Twitter</p>
-            <p className="hover:text-white/80 cursor-pointer">YouTube</p>
           </div>
         </div>
       </footer>
