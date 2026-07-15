@@ -123,8 +123,8 @@ export default function AdminReviews() {
     return matchesSearch && matchesStatus && matchesRating
   })
 
-  // Get unique statuses for filter
-  const statuses = ['All', ...new Set(reviews.map(r => r.status))]
+  // Get unique statuses for filter - FIXED
+  const statuses = ['All', ...Array.from(new Set(reviews.map(r => r.status)))]
   const ratings = ['All', '5', '4', '3', '2', '1']
 
   // Handle approve review
