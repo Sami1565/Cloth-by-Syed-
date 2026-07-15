@@ -279,6 +279,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
+      // In the footer section, add this link:
+<div>
+  <p className="text-white/80 font-medium">Info</p>
+  <Link href="/about" className="hover:text-white/80 cursor-pointer block">About</Link>
+  <Link href="/contact" className="hover:text-white/80 cursor-pointer block">Contact</Link>
+  <Link href="/admin" className="hover:text-gold-400 cursor-pointer block text-gold-400/50">Admin Panel</Link>
+</div>
       <footer className="border-t border-white/5 py-12 px-4 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white/50 text-sm">
           <div>
