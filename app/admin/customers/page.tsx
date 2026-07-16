@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { FiSearch, FiMail, FiUser, FiDownload, FiChevronDown, FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 
-// Sample customer data
 const customersData = [
   { id: 1, name: 'John Doe', email: 'john@email.com', orders: 12, spent: 2948, joined: '2023-06-15', status: 'Active', avatar: 'JD' },
   { id: 2, name: 'Jane Smith', email: 'jane@email.com', orders: 8, spent: 1834, joined: '2023-08-22', status: 'Active', avatar: 'JS' },
@@ -28,16 +27,14 @@ export default function AdminCustomers() {
   const [showEditModal, setShowEditModal] = useState(false)
 
   useEffect(() => {
-    // Check authentication
-    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
-    if (!isAuthenticated) {
+    const auth = localStorage.getItem('adminAuth') === 'true'
+    if (!auth) {
       router.push('/admin-login')
     } else {
       setIsLoading(false)
     }
-  }, [router])
+  }, [])
 
-  // Filter customers
   const filteredCustomers = customers.filter(customer => {
     const matchesSearch = customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           customer.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -45,29 +42,24 @@ export default function AdminCustomers() {
     return matchesSearch && matchesStatus
   })
 
-  // Get unique statuses for filter - FIXED
   const statuses = ['All', ...Array.from(new Set(customers.map(c => c.status)))]
 
-  // Handle view customer
   const viewCustomer = (customer: any) => {
     setSelectedCustomer(customer)
     setShowModal(true)
   }
 
-  // Handle edit customer
   const editCustomer = (customer: any) => {
     setSelectedCustomer(customer)
     setShowEditModal(true)
   }
 
-  // Handle delete customer
   const handleDelete = (id: number) => {
     if (confirm('Are you sure you want to delete this customer?')) {
       setCustomers(customers.filter(c => c.id !== id))
     }
   }
 
-  // Handle update customer
   const handleUpdateCustomer = (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
@@ -82,7 +74,6 @@ export default function AdminCustomers() {
     setSelectedCustomer(null)
   }
 
-  // Calculate summary stats
   const totalCustomers = customers.length
   const activeCustomers = customers.filter(c => c.status === 'Active').length
   const totalRevenue = customers.reduce((sum, c) => sum + c.spent, 0)
@@ -98,7 +89,6 @@ export default function AdminCustomers() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-light tracking-widest">CUSTOMERS</h1>
@@ -110,7 +100,6 @@ export default function AdminCustomers() {
         </button>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
           <p className="text-white/50 text-sm">Total Customers</p>
@@ -134,7 +123,6 @@ export default function AdminCustomers() {
         </div>
       </div>
 
-      {/* Search and Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
@@ -162,7 +150,6 @@ export default function AdminCustomers() {
         </div>
       </div>
 
-      {/* Customers Table */}
       <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -234,7 +221,6 @@ export default function AdminCustomers() {
           </table>
         </div>
 
-        {/* Empty State */}
         {filteredCustomers.length === 0 && (
           <div className="p-12 text-center text-white/30">
             <p className="text-lg">No customers found</p>
@@ -242,27 +228,17 @@ export default function AdminCustomers() {
           </div>
         )}
 
-        {/* Footer */}
         <div className="p-4 border-t border-white/10 flex justify-between items-center text-white/50 text-sm">
           <span>Showing {filteredCustomers.length} of {customers.length} customers</span>
           <div className="flex gap-2">
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition disabled:opacity-30">
-              Previous
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">
-              1
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              2
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              Next
-            </button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Previous</button>
+            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">1</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">2</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Next</button>
           </div>
         </div>
       </div>
 
-      {/* View Customer Modal */}
       {showModal && selectedCustomer && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <motion.div 
@@ -343,7 +319,6 @@ export default function AdminCustomers() {
         </div>
       )}
 
-      {/* Edit Customer Modal */}
       {showEditModal && selectedCustomer && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <motion.div 
