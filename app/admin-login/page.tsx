@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -14,14 +14,6 @@ export default function AdminLogin() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  // Check if already logged in
-  useEffect(() => {
-    const auth = localStorage.getItem('adminAuth') === 'true'
-    if (auth) {
-      router.push('/admin')
-    }
-  }, [])
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
@@ -34,9 +26,7 @@ export default function AdminLogin() {
       localStorage.setItem('adminUser', username)
       
       // Redirect to admin panel
-      setTimeout(() => {
-        router.push('/admin')
-      }, 300)
+      router.push('/admin')
     } else {
       setError('Invalid username or password. Please try again.')
       setIsLoading(false)
