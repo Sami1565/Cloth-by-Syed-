@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { FiSearch, FiEye, FiFilter, FiDownload, FiChevronDown } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 
-// Sample orders data
 const ordersData = [
   { id: '#1001', customer: 'John Doe', email: 'john@email.com', total: 249, status: 'Delivered', date: '2024-01-15', items: 2, payment: 'Credit Card' },
   { id: '#1002', customer: 'Jane Smith', email: 'jane@email.com', total: 189, status: 'Processing', date: '2024-01-14', items: 1, payment: 'PayPal' },
@@ -27,16 +26,14 @@ export default function AdminOrders() {
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
-    // Check authentication
-    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
-    if (!isAuthenticated) {
+    const auth = localStorage.getItem('adminAuth') === 'true'
+    if (!auth) {
       router.push('/admin-login')
     } else {
       setIsLoading(false)
     }
-  }, [router])
+  }, [])
 
-  // Filter orders
   const filteredOrders = orders.filter(order => {
     const matchesSearch = order.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -45,16 +42,13 @@ export default function AdminOrders() {
     return matchesSearch && matchesStatus
   })
 
-  // Get unique statuses for filter - FIXED
   const statuses = ['All', ...Array.from(new Set(orders.map(o => o.status)))]
 
-  // View order details
   const viewOrder = (order: any) => {
     setSelectedOrder(order)
     setShowModal(true)
   }
 
-  // Update order status
   const updateStatus = (id: string, newStatus: string) => {
     setOrders(orders.map(order => 
       order.id === id ? { ...order, status: newStatus } : order
@@ -71,7 +65,6 @@ export default function AdminOrders() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-light tracking-widest">ORDERS</h1>
@@ -89,7 +82,6 @@ export default function AdminOrders() {
         </div>
       </div>
 
-      {/* Search and Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
@@ -117,7 +109,6 @@ export default function AdminOrders() {
         </div>
       </div>
 
-      {/* Orders Table */}
       <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -180,7 +171,6 @@ export default function AdminOrders() {
           </table>
         </div>
         
-        {/* Empty State */}
         {filteredOrders.length === 0 && (
           <div className="p-12 text-center text-white/30">
             <p className="text-lg">No orders found</p>
@@ -188,27 +178,17 @@ export default function AdminOrders() {
           </div>
         )}
 
-        {/* Pagination */}
         <div className="p-4 border-t border-white/10 flex justify-between items-center text-white/50 text-sm">
           <span>Showing {filteredOrders.length} of {orders.length} orders</span>
           <div className="flex gap-2">
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition disabled:opacity-30">
-              Previous
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">
-              1
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              2
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              Next
-            </button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Previous</button>
+            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">1</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">2</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Next</button>
           </div>
         </div>
       </div>
 
-      {/* Order Details Modal */}
       {showModal && selectedOrder && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <motion.div 
