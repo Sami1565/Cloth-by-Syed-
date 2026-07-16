@@ -304,13 +304,13 @@ export default function Home() {
             </div>
           </div>
           <div className="absolute bottom-6 left-6 flex gap-3">
-            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
+            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
               ⚡ Auto
             </button>
-            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
+            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
               🔄 Rotate
             </button>
-            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
+            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
               🔍 Zoom
             </button>
           </div>
