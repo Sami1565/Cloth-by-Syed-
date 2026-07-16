@@ -34,39 +34,32 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname()
   const router = useRouter()
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [adminUser, setAdminUser] = useState('Admin')
 
   useEffect(() => {
-    // Check authentication on mount
-    const checkAuth = () => {
-      const auth = localStorage.getItem('adminAuth') === 'true'
-      const user = localStorage.getItem('adminUser') || 'Admin'
-      
-      if (!auth) {
-        router.push('/admin-login')
-      } else {
-        setIsAuthenticated(true)
-        setAdminUser(user)
-      }
-    }
+    // Check authentication
+    const auth = localStorage.getItem('adminAuth') === 'true'
+    const user = localStorage.getItem('adminUser') || 'Admin'
     
-    checkAuth()
-  }, [router])
+    if (!auth) {
+      router.replace('/admin-login')
+    } else {
+      setAdminUser(user)
+      setIsLoading(false)
+    }
+  }, [router]) // Removed pathname dependency to prevent re-runs
 
   const handleLogout = () => {
     if (confirm('Are you sure you want to logout?')) {
-      // Clear all admin authentication data
       localStorage.removeItem('adminAuth')
       localStorage.removeItem('adminUser')
-      
-      // Redirect to login page
-      router.push('/admin-login')
+      router.replace('/admin-login')
     }
   }
 
   // Show loading while checking authentication
-  if (isAuthenticated === null) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-white/50">Loading...</div>
