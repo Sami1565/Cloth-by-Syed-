@@ -35,30 +35,26 @@ export default function AdminLayout({
   const pathname = usePathname()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [adminUser, setAdminUser] = useState('Admin')
 
   useEffect(() => {
     // Check authentication
     const auth = localStorage.getItem('adminAuth') === 'true'
-    const user = localStorage.getItem('adminUser') || 'Admin'
     
     if (!auth) {
-      router.replace('/admin-login')
+      router.push('/admin-login')
     } else {
-      setAdminUser(user)
       setIsLoading(false)
     }
-  }, [router]) // Removed pathname dependency to prevent re-runs
+  }, [])
 
   const handleLogout = () => {
     if (confirm('Are you sure you want to logout?')) {
       localStorage.removeItem('adminAuth')
       localStorage.removeItem('adminUser')
-      router.replace('/admin-login')
+      router.push('/admin-login')
     }
   }
 
-  // Show loading while checking authentication
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -70,7 +66,7 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-black text-white flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-zinc-900/50 border-r border-white/10 min-h-screen fixed top-0 left-0 overflow-y-auto">
+      <aside className="w-64 bg-zinc-900/50 border-r border-white/10 min-h-screen fixed top-0 left-0 overflow-y-auto z-50">
         <div className="p-6 border-b border-white/10">
           <Link href="/" className="inline-block">
             <h1 className="text-2xl font-bold text-gold-400">LUXE</h1>
@@ -83,7 +79,7 @@ export default function AdminLayout({
           <FiShield className="text-gold-400" />
           <div>
             <p className="text-white/70 text-xs">Logged in as</p>
-            <p className="text-white text-sm font-medium">{adminUser}</p>
+            <p className="text-white text-sm font-medium">Admin</p>
           </div>
         </div>
 
