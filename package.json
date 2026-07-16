@@ -32,3 +32,10 @@
     "typescript": "^5"
   }
 }
+{
+  "dependencies": {
+    "three": "^0.157.0",
+    "@react-three/fiber": "^8.15.12",
+    "@react-three/drei": "^9.88.12"
+  }
+}
