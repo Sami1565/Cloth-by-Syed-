@@ -4,6 +4,8 @@
 
 :root {
   --gold: #d4af37;
+  --gold-light: #f5e7b2;
+  --gold-dark: #b8961e;
 }
 
 @layer base {
@@ -12,25 +14,43 @@
   }
 }
 
+@layer components {
+  .btn-primary {
+    @apply px-8 py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply px-8 py-3 rounded-full border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .btn-gold {
+    @apply px-8 py-3 rounded-full bg-[#d4af37] text-black font-semibold hover:bg-[#c5a028] transition-all duration-300 shadow-lg shadow-[#d4af37]/30 hover:shadow-[#d4af37]/50 transform hover:scale-105;
+  }
+
+  .card {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:border-[#d4af37]/40 transition-all duration-300;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-light tracking-widest text-center;
+  }
+
+  .section-title span {
+    @apply text-[#d4af37];
+  }
+}
+
 @layer utilities {
-  .text-gold-400 {
+  .text-gold {
     color: #d4af37;
   }
-  .bg-gold-500 {
+  .bg-gold {
     background-color: #d4af37;
   }
-  .hover\:text-gold-300:hover {
-    color: #c5a028;
+  .border-gold {
+    border-color: #d4af37;
   }
-  .hover\:bg-gold-400:hover {
-    background-color: #c5a028;
-  }
-  .border-gold-400\/20 {
-    border-color: rgba(212, 175, 55, 0.2);
-  }
-  .glass {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 215, 0, 0.1);
+  .hover\:bg-gold-light:hover {
+    background-color: #f5e7b2;
   }
 }
