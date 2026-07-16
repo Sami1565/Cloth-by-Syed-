@@ -34,33 +34,29 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isChecking, setIsChecking] = useState(true)
 
   useEffect(() => {
-    // Check authentication
+    // Only run this check once when component mounts
     const auth = localStorage.getItem('adminAuth') === 'true'
-    
     if (!auth) {
-      router.push('/admin-login')
+      router.replace('/admin-login')
     } else {
-      setIsLoading(false)
+      setIsChecking(false)
     }
-  }, [])
+  }, []) // Empty dependency array - runs only once
 
   const handleLogout = () => {
     if (confirm('Are you sure you want to logout?')) {
       localStorage.removeItem('adminAuth')
       localStorage.removeItem('adminUser')
-      router.push('/admin-login')
+      router.replace('/admin-login')
     }
   }
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="text-white/50">Loading...</div>
-      </div>
-    )
+  // Show nothing while checking - prevents flash
+  if (isChecking) {
+    return null
   }
 
   return (
