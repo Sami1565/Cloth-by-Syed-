@@ -15,7 +15,7 @@ const initialProducts = [
   { id: 6, name: 'Leather Belt', price: 89, category: 'Accessories', stock: 15, status: 'Low Stock', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100&h=100&fit=crop' },
 ]
 
-// Get unique categories - FIXED with Array.from
+// Get unique categories
 const allCategories = ['All', ...Array.from(new Set(initialProducts.map(p => p.category)))]
 
 export default function AdminProducts() {
@@ -29,16 +29,14 @@ export default function AdminProducts() {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([])
 
   useEffect(() => {
-    // Check authentication
-    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
-    if (!isAuthenticated) {
+    const auth = localStorage.getItem('adminAuth') === 'true'
+    if (!auth) {
       router.push('/admin-login')
     } else {
       setIsLoading(false)
     }
-  }, [router])
+  }, [])
 
-  // Filter products
   const filteredProducts = products.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           p.category.toLowerCase().includes(searchTerm.toLowerCase())
@@ -46,14 +44,12 @@ export default function AdminProducts() {
     return matchesSearch && matchesCategory
   })
 
-  // Handle delete
   const handleDelete = (id: number) => {
     if (confirm('Are you sure you want to delete this product?')) {
       setProducts(products.filter(p => p.id !== id))
     }
   }
 
-  // Handle bulk delete
   const handleBulkDelete = () => {
     if (selectedProducts.length === 0) return
     if (confirm(`Delete ${selectedProducts.length} products?`)) {
@@ -62,7 +58,6 @@ export default function AdminProducts() {
     }
   }
 
-  // Handle select all
   const handleSelectAll = () => {
     if (selectedProducts.length === filteredProducts.length) {
       setSelectedProducts([])
@@ -71,14 +66,12 @@ export default function AdminProducts() {
     }
   }
 
-  // Handle toggle select
   const handleToggleSelect = (id: number) => {
     setSelectedProducts(prev => 
       prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
     )
   }
 
-  // Handle form submit
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
@@ -112,7 +105,6 @@ export default function AdminProducts() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-light tracking-widest">PRODUCTS</h1>
@@ -141,7 +133,6 @@ export default function AdminProducts() {
         </div>
       </div>
 
-      {/* Search and Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
@@ -169,7 +160,6 @@ export default function AdminProducts() {
         </div>
       </div>
 
-      {/* Products Table */}
       <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -255,7 +245,6 @@ export default function AdminProducts() {
           </table>
         </div>
 
-        {/* Empty State */}
         {filteredProducts.length === 0 && (
           <div className="p-12 text-center text-white/30">
             <p className="text-lg">No products found</p>
@@ -263,27 +252,17 @@ export default function AdminProducts() {
           </div>
         )}
 
-        {/* Footer */}
         <div className="p-4 border-t border-white/10 flex justify-between items-center text-white/50 text-sm">
           <span>Showing {filteredProducts.length} of {products.length} products</span>
           <div className="flex gap-2">
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition disabled:opacity-30">
-              Previous
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">
-              1
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              2
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              Next
-            </button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Previous</button>
+            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">1</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">2</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Next</button>
           </div>
         </div>
       </div>
 
-      {/* Add/Edit Product Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <motion.div 
