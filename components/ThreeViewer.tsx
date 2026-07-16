@@ -1,11 +1,11 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, Suspense } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, useGLTF, Html } from '@react-three/drei'
+import { OrbitControls, Environment, Html } from '@react-three/drei'
 import * as THREE from 'three'
 
-// Simple 3D Model Component
+// Simple 3D Model Component without Bvh
 function Model3D({ color = '#d4af37' }: { color?: string }) {
   const meshRef = useRef<THREE.Mesh>(null)
   const [hovered, setHovered] = useState(false)
@@ -36,6 +36,15 @@ function Model3D({ color = '#d4af37' }: { color?: string }) {
   )
 }
 
+// Loading Fallback
+function Loader() {
+  return (
+    <div className="flex items-center justify-center w-full h-full">
+      <div className="text-white/50">Loading 3D Model...</div>
+    </div>
+  )
+}
+
 // Main 3D Viewer Component
 export default function ThreeViewer({ onClose }: { onClose: () => void }) {
   return (
@@ -52,24 +61,26 @@ export default function ThreeViewer({ onClose }: { onClose: () => void }) {
         </button>
 
         {/* 3D Canvas */}
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 10]} intensity={1} />
-          <directionalLight position={[-10, -10, -10]} intensity={0.5} />
-          <pointLight position={[0, 5, 5]} intensity={0.5} />
-          
-          <Model3D color="#d4af37" />
-          
-          <OrbitControls 
-            enableZoom={true}
-            enablePan={true}
-            autoRotate={true}
-            autoRotateSpeed={3}
-            minDistance={3}
-            maxDistance={10}
-          />
-          <Environment preset="studio" />
-        </Canvas>
+        <Suspense fallback={<Loader />}>
+          <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[10, 10, 10]} intensity={1} />
+            <directionalLight position={[-10, -10, -10]} intensity={0.5} />
+            <pointLight position={[0, 5, 5]} intensity={0.5} />
+            
+            <Model3D color="#d4af37" />
+            
+            <OrbitControls 
+              enableZoom={true}
+              enablePan={true}
+              autoRotate={true}
+              autoRotateSpeed={3}
+              minDistance={3}
+              maxDistance={10}
+            />
+            <Environment preset="studio" />
+          </Canvas>
+        </Suspense>
 
         {/* Controls Info */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4 text-white/50 text-xs">
