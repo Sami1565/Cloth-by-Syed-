@@ -5,19 +5,14 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { 
   FaStar, 
-  FaStarHalfAlt, 
-  FaRegStar,
   FaCheck,
   FaTimes,
-  FaTrash,
   FaReply,
-  FaFilter,
   FaSearch,
   FaChevronDown
 } from 'react-icons/fa'
 import { FiTrash2, FiCheck, FiEye, FiMail } from 'react-icons/fi'
 
-// Sample reviews data
 const reviewsData = [
   { 
     id: 1, 
@@ -104,16 +99,14 @@ export default function AdminReviews() {
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
-    // Check authentication
-    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
-    if (!isAuthenticated) {
+    const auth = localStorage.getItem('adminAuth') === 'true'
+    if (!auth) {
       router.push('/admin-login')
     } else {
       setIsLoading(false)
     }
-  }, [router])
+  }, [])
 
-  // Filter reviews
   const filteredReviews = reviews.filter(review => {
     const matchesSearch = review.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           review.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -123,36 +116,30 @@ export default function AdminReviews() {
     return matchesSearch && matchesStatus && matchesRating
   })
 
-  // Get unique statuses for filter - FIXED
   const statuses = ['All', ...Array.from(new Set(reviews.map(r => r.status)))]
   const ratings = ['All', '5', '4', '3', '2', '1']
 
-  // Handle approve review
   const handleApprove = (id: number) => {
     setReviews(reviews.map(r => r.id === id ? { ...r, status: 'Approved' } : r))
   }
 
-  // Handle reject review
   const handleReject = (id: number) => {
     if (confirm('Reject this review?')) {
       setReviews(reviews.filter(r => r.id !== id))
     }
   }
 
-  // Handle delete review
   const handleDelete = (id: number) => {
     if (confirm('Are you sure you want to delete this review?')) {
       setReviews(reviews.filter(r => r.id !== id))
     }
   }
 
-  // Handle view review
   const viewReview = (review: any) => {
     setSelectedReview(review)
     setShowModal(true)
   }
 
-  // Get status badge
   const getStatusBadge = (status: string) => {
     switch(status) {
       case 'Approved':
@@ -164,7 +151,6 @@ export default function AdminReviews() {
     }
   }
 
-  // Calculate summary stats
   const totalReviews = reviews.length
   const approvedReviews = reviews.filter(r => r.status === 'Approved').length
   const pendingReviews = reviews.filter(r => r.status === 'Pending').length
@@ -180,7 +166,6 @@ export default function AdminReviews() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-light tracking-widest">REVIEWS</h1>
@@ -192,7 +177,6 @@ export default function AdminReviews() {
         </button>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
           <p className="text-white/50 text-sm">Total Reviews</p>
@@ -225,7 +209,6 @@ export default function AdminReviews() {
         </div>
       </div>
 
-      {/* Search and Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
@@ -267,7 +250,6 @@ export default function AdminReviews() {
         </div>
       </div>
 
-      {/* Reviews Table */}
       <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -351,7 +333,6 @@ export default function AdminReviews() {
           </table>
         </div>
 
-        {/* Empty State */}
         {filteredReviews.length === 0 && (
           <div className="p-12 text-center text-white/30">
             <p className="text-lg">No reviews found</p>
@@ -359,27 +340,17 @@ export default function AdminReviews() {
           </div>
         )}
 
-        {/* Footer */}
         <div className="p-4 border-t border-white/10 flex justify-between items-center text-white/50 text-sm">
           <span>Showing {filteredReviews.length} of {reviews.length} reviews</span>
           <div className="flex gap-2">
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition disabled:opacity-30">
-              Previous
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">
-              1
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              2
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">
-              Next
-            </button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Previous</button>
+            <button className="px-4 py-2 rounded-lg bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 transition">1</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">2</button>
+            <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition">Next</button>
           </div>
         </div>
       </div>
 
-      {/* Review Details Modal */}
       {showModal && selectedReview && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <motion.div 
