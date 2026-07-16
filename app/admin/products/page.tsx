@@ -15,7 +15,8 @@ const initialProducts = [
   { id: 6, name: 'Leather Belt', price: 89, category: 'Accessories', stock: 15, status: 'Low Stock', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=100&h=100&fit=crop' },
 ]
 
-const categories = ['All', 'Men', 'Women', 'Accessories', 'Kids']
+// Get unique categories - FIXED with Array.from
+const allCategories = ['All', ...Array.from(new Set(initialProducts.map(p => p.category)))]
 
 export default function AdminProducts() {
   const router = useRouter()
@@ -158,7 +159,7 @@ export default function AdminProducts() {
             onChange={(e) => setFilterCategory(e.target.value)}
             className="appearance-none bg-white/5 border border-white/10 rounded-xl px-6 py-3 pr-12 text-white focus:border-gold-400/50 outline-none transition cursor-pointer min-w-[150px]"
           >
-            {categories.map((cat) => (
+            {allCategories.map((cat) => (
               <option key={cat} value={cat} className="bg-zinc-900">
                 {cat}
               </option>
