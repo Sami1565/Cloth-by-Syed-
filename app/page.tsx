@@ -16,6 +16,7 @@ import {
 import { FiShoppingCart } from 'react-icons/fi'
 import { IoHeartOutline, IoHeart } from 'react-icons/io5'
 import ThreeViewer from '@/components/ThreeViewer'
+import Hero from '@/components/Hero'
 
 // Dummy products data
 const products = [
@@ -274,52 +275,8 @@ export default function Home() {
         )}
       </header>
 
-      {/* Hero Section - FIXED */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1600&q=80')] bg-cover bg-center opacity-20 mix-blend-overlay" />
-        </div>
-        <div className="relative z-20 text-center max-w-4xl px-4">
-          <motion.h1 
-            initial={{ opacity: 0, y: 40 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 1.2 }} 
-            className="text-6xl sm:text-8xl font-extralight tracking-[0.2em] text-white/90"
-          >
-            <span className="text-gold-400">LUXE</span> STUDIO
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ delay: 0.6 }} 
-            className="text-white/50 text-lg sm:text-xl mt-6 tracking-widest font-light max-w-xl mx-auto"
-          >
-            Where fashion meets dimension. Immersive 3D couture.
-          </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.9 }} 
-            className="mt-10 flex flex-wrap justify-center gap-4 relative z-30"
-          >
-            <Link 
-              href="/shop" 
-              className="px-10 py-4 rounded-full bg-gold-400 text-black font-medium hover:bg-gold-300 transition shadow-xl shadow-gold-400/20 hover:shadow-gold-400/40 hover:scale-105 transform transition-all duration-300"
-            >
-              Explore Collection
-            </Link>
-            <button 
-              onClick={() => setIs3DViewerOpen(true)}
-              className="px-10 py-4 rounded-full border-2 border-white/30 text-white hover:bg-white/10 transition hover:border-gold-400/50 hover:text-gold-300 transform hover:scale-105 transition-all duration-300"
-            >
-              View in 3D
-            </button>
-          </motion.div>
-        </div>
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20 text-xs tracking-[0.3em] animate-bounce hidden sm:block z-10">
-          SCROLL
-        </div>
-      </section>
+      {/* Hero Section - Using Hero Component */}
+      <Hero onOpen3D={() => setIs3DViewerOpen(true)} />
 
       {/* 3D Viewer Modal */}
       {is3DViewerOpen && (
