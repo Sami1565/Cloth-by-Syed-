@@ -22,20 +22,16 @@ const recentOrders = [
 export default function AdminDashboard() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [adminUser, setAdminUser] = useState('Admin')
 
   useEffect(() => {
     // Check authentication
-    const isAuthenticated = localStorage.getItem('adminAuth') === 'true'
-    const user = localStorage.getItem('adminUser') || 'Admin'
-    
-    if (!isAuthenticated) {
+    const auth = localStorage.getItem('adminAuth') === 'true'
+    if (!auth) {
       router.push('/admin-login')
     } else {
-      setAdminUser(user)
       setIsLoading(false)
     }
-  }, [router])
+  }, [])
 
   if (isLoading) {
     return (
@@ -50,7 +46,7 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-light tracking-widest">DASHBOARD</h1>
-        <p className="text-white/50 text-sm mt-1">Welcome back, {adminUser}</p>
+        <p className="text-white/50 text-sm mt-1">Welcome back, Admin</p>
       </div>
 
       {/* Stats Grid */}
@@ -118,54 +114,6 @@ export default function AdminDashboard() {
             </tbody>
           </table>
         </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <motion.div 
-          whileHover={{ scale: 1.02 }}
-          className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 cursor-pointer hover:border-gold-400/30 transition-all duration-300"
-        >
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-gold-400/20 text-gold-400">
-              <FiPackage className="text-xl" />
-            </div>
-            <div>
-              <p className="text-white/70 text-sm">Add New Product</p>
-              <p className="text-white/30 text-xs">Expand your catalog</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div 
-          whileHover={{ scale: 1.02 }}
-          className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 cursor-pointer hover:border-gold-400/30 transition-all duration-300"
-        >
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-blue-400/20 text-blue-400">
-              <FiUsers className="text-xl" />
-            </div>
-            <div>
-              <p className="text-white/70 text-sm">View Customers</p>
-              <p className="text-white/30 text-xs">Manage your audience</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div 
-          whileHover={{ scale: 1.02 }}
-          className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 cursor-pointer hover:border-gold-400/30 transition-all duration-300"
-        >
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-purple-400/20 text-purple-400">
-              <FiTrendingUp className="text-xl" />
-            </div>
-            <div>
-              <p className="text-white/70 text-sm">View Analytics</p>
-              <p className="text-white/30 text-xs">Track your performance</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </div>
   )
