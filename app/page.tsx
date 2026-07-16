@@ -95,7 +95,7 @@ function ProductCard({ product, onQuickView }: any) {
   return (
     <motion.div 
       whileHover={{ y: -8 }} 
-      className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-gold-400/40 transition-all duration-500"
+      className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all duration-500"
     >
       <div className="relative aspect-[3/4] overflow-hidden">
         <img 
@@ -122,13 +122,13 @@ function ProductCard({ product, onQuickView }: any) {
             <p className="text-white/50 text-xs uppercase tracking-wider">{product.category}</p>
             <h3 className="text-white font-semibold text-lg mt-1">{product.name}</h3>
           </div>
-          <span className="text-gold-400 font-bold text-xl">${product.price}</span>
+          <span className="text-[#d4af37] font-bold text-xl">${product.price}</span>
         </div>
         <div className="flex items-center gap-1 mt-2 text-yellow-400 text-sm">
           <FaStar /> <span className="text-white/80 text-xs">{product.rating}</span>
           <span className="text-white/30 text-xs ml-2">({product.reviews})</span>
         </div>
-        <button className="mt-4 w-full py-2.5 rounded-full bg-gold-400/20 text-gold-300 font-medium hover:bg-gold-400/30 transition border border-gold-400/30 text-sm">
+        <button className="mt-4 w-full py-2.5 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition border border-white/20 text-sm">
           Add to Bag
         </button>
       </div>
@@ -150,7 +150,7 @@ function QuickViewModal({ product, onClose }: any) {
       <motion.div 
         initial={{ scale: 0.9 }} 
         animate={{ scale: 1 }} 
-        className="bg-zinc-900 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 border border-gold-400/20 shadow-2xl"
+        className="bg-zinc-900 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 border border-[#d4af37]/20 shadow-2xl"
       >
         <div className="flex justify-between items-start">
           <h2 className="text-2xl font-bold text-white">{product.name}</h2>
@@ -165,7 +165,7 @@ function QuickViewModal({ product, onClose }: any) {
             className="rounded-2xl w-full h-80 object-cover" 
           />
           <div>
-            <p className="text-gold-400 text-3xl font-bold">${product.price}</p>
+            <p className="text-[#d4af37] text-3xl font-bold">${product.price}</p>
             <p className="text-white/60 mt-2">Category: {product.category}</p>
             <div className="flex gap-2 mt-4 flex-wrap">
               {product.sizes.map((size: string) => (
@@ -177,7 +177,7 @@ function QuickViewModal({ product, onClose }: any) {
             <div className="mt-4">
               <p className="text-white/60 text-sm">Color: {product.color}</p>
             </div>
-            <button className="mt-6 w-full py-3 rounded-full bg-gold-400 text-black font-semibold hover:bg-gold-300 transition">
+            <button className="mt-6 w-full py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition">
               Add to Cart
             </button>
           </div>
@@ -199,44 +199,44 @@ export default function Home() {
       <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-gold-400">LUXE</h1>
+            <h1 className="text-2xl font-bold text-[#d4af37]">LUXE</h1>
             <span className="text-[10px] tracking-[0.3em] text-white/40 uppercase hidden sm:inline">Studio</span>
           </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8 text-sm font-light">
-            <Link href="/" className="hover:text-gold-300 transition">Home</Link>
-            <Link href="/shop" className="hover:text-gold-300 transition">Shop</Link>
-            <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
-            <Link href="/about" className="hover:text-gold-300 transition">About</Link>
-            <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
+            <Link href="/" className="hover:text-[#d4af37] transition">Home</Link>
+            <Link href="/shop" className="hover:text-[#d4af37] transition">Shop</Link>
+            <Link href="/collections" className="hover:text-[#d4af37] transition">Collections</Link>
+            <Link href="/about" className="hover:text-[#d4af37] transition">About</Link>
+            <Link href="/contact" className="hover:text-[#d4af37] transition">Contact</Link>
           </nav>
           
           {/* Right Icons with Account Dropdown */}
           <div className="flex items-center gap-4">
-            <FaSearch className="text-white/40 hover:text-gold-300 transition cursor-pointer" />
+            <FaSearch className="text-white/40 hover:text-[#d4af37] transition cursor-pointer" />
             <FaHeart className="text-white/40 hover:text-red-400 transition cursor-pointer hidden sm:block" />
             <div className="relative">
-              <FiShoppingCart className="text-white/40 hover:text-gold-300 transition cursor-pointer text-xl" />
-              <span className="absolute -top-1 -right-2 bg-gold-400 text-black text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
+              <FiShoppingCart className="text-white/40 hover:text-[#d4af37] transition cursor-pointer text-xl" />
+              <span className="absolute -top-1 -right-2 bg-[#d4af37] text-black text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
                 3
               </span>
             </div>
             
             {/* Account Dropdown */}
             <div className="relative group">
-              <button className="px-4 py-1.5 rounded-full bg-gold-400 text-black text-sm font-medium hover:bg-gold-300 transition flex items-center gap-2">
+              <button className="px-4 py-1.5 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition flex items-center gap-2">
                 <FaUser className="text-sm" />
                 <span className="hidden sm:inline">Account</span>
               </button>
               <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-xl border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <Link href="/login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition rounded-t-xl">
+                <Link href="/login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-[#d4af37] transition rounded-t-xl">
                   Sign In
                 </Link>
-                <Link href="/signup" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition">
+                <Link href="/signup" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-[#d4af37] transition">
                   Create Account
                 </Link>
-                <Link href="/admin-login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-gold-400 transition rounded-b-xl border-t border-white/10">
+                <Link href="/admin-login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-[#d4af37] transition rounded-b-xl border-t border-white/10">
                   Admin Panel
                 </Link>
               </div>
@@ -260,22 +260,22 @@ export default function Home() {
             className="md:hidden bg-black/95 backdrop-blur-md border-b border-white/10 py-4 px-4"
           >
             <div className="flex flex-col gap-4">
-              <Link href="/" className="hover:text-gold-300 transition">Home</Link>
-              <Link href="/shop" className="hover:text-gold-300 transition">Shop</Link>
-              <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
-              <Link href="/about" className="hover:text-gold-300 transition">About</Link>
-              <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
+              <Link href="/" className="hover:text-[#d4af37] transition">Home</Link>
+              <Link href="/shop" className="hover:text-[#d4af37] transition">Shop</Link>
+              <Link href="/collections" className="hover:text-[#d4af37] transition">Collections</Link>
+              <Link href="/about" className="hover:text-[#d4af37] transition">About</Link>
+              <Link href="/contact" className="hover:text-[#d4af37] transition">Contact</Link>
               <div className="border-t border-white/10 pt-4">
-                <Link href="/login" className="block py-2 text-white/80 hover:text-gold-400 transition">Sign In</Link>
-                <Link href="/signup" className="block py-2 text-white/80 hover:text-gold-400 transition">Create Account</Link>
-                <Link href="/admin-login" className="block py-2 text-gold-400/70 hover:text-gold-400 transition">Admin Panel</Link>
+                <Link href="/login" className="block py-2 text-white/80 hover:text-[#d4af37] transition">Sign In</Link>
+                <Link href="/signup" className="block py-2 text-white/80 hover:text-[#d4af37] transition">Create Account</Link>
+                <Link href="/admin-login" className="block py-2 text-[#d4af37]/70 hover:text-[#d4af37] transition">Admin Panel</Link>
               </div>
             </div>
           </motion.div>
         )}
       </header>
 
-      {/* Hero Section - Using Hero Component */}
+      {/* Hero Section */}
       <Hero onOpen3D={() => setIs3DViewerOpen(true)} />
 
       {/* 3D Viewer Modal */}
@@ -286,16 +286,16 @@ export default function Home() {
       {/* 3D Viewer Section */}
       <section className="py-20 px-4 max-w-7xl mx-auto">
         <h2 className="text-3xl font-light tracking-widest text-center text-white/90 mb-12">
-          INTERACTIVE <span className="text-gold-400">3D</span> STUDIO
+          INTERACTIVE <span className="text-[#d4af37]">3D</span> STUDIO
         </h2>
         <div className="w-full h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-zinc-900 to-black border border-white/10 flex items-center justify-center relative">
           <div className="absolute inset-0 flex items-center justify-center text-white/10 text-6xl font-bold tracking-widest">
             3D
           </div>
           <div className="relative w-64 h-80">
-            <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl rounded-full animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#d4af37]/20 to-[#d4af37]/20 blur-3xl rounded-full animate-pulse" />
             <div className="relative w-full h-full flex items-center justify-center">
-              <div className="w-40 h-56 bg-gradient-to-br from-gold-400/80 to-gold-600/30 rounded-3xl shadow-2xl transform rotate-6 hover:rotate-0 transition-all duration-700" 
+              <div className="w-40 h-56 bg-gradient-to-br from-[#d4af37]/80 to-[#d4af37]/30 rounded-3xl shadow-2xl transform rotate-6 hover:rotate-0 transition-all duration-700" 
                    style={{ boxShadow: '0 25px 60px rgba(212,175,55,0.3)' }}>
                 <div className="w-full h-full flex items-center justify-center text-black/30 text-sm font-bold tracking-widest">
                   LUXE
@@ -304,18 +304,18 @@ export default function Home() {
             </div>
           </div>
           <div className="absolute bottom-6 left-6 flex gap-3">
-            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-gold-300 transition bg-white/5 backdrop-blur-sm border border-white/10">
+            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
               ⚡ Auto
             </button>
-            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-gold-300 transition bg-white/5 backdrop-blur-sm border border-white/10">
+            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
               🔄 Rotate
             </button>
-            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-gold-300 transition bg-white/5 backdrop-blur-sm border border-white/10">
+            <button className="glass px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
               🔍 Zoom
             </button>
           </div>
           <div className="absolute top-4 right-4 flex gap-2">
-            <div className="w-6 h-6 rounded-full bg-gold-400 border border-white/20 cursor-pointer hover:scale-110 transition"></div>
+            <div className="w-6 h-6 rounded-full bg-[#d4af37] border border-white/20 cursor-pointer hover:scale-110 transition"></div>
             <div className="w-6 h-6 rounded-full bg-black border border-white/20 cursor-pointer hover:scale-110 transition"></div>
             <div className="w-6 h-6 rounded-full bg-white border border-white/20 cursor-pointer hover:scale-110 transition"></div>
           </div>
@@ -325,8 +325,8 @@ export default function Home() {
       {/* Featured Products */}
       <section className="py-12 px-4 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-10">
-          <h2 className="text-2xl font-light tracking-widest">NEW <span className="text-gold-400">ARRIVALS</span></h2>
-          <Link href="/shop" className="text-white/40 hover:text-gold-300 text-sm flex items-center gap-1 transition">
+          <h2 className="text-2xl font-light tracking-widest">NEW <span className="text-[#d4af37]">ARRIVALS</span></h2>
+          <Link href="/shop" className="text-white/40 hover:text-[#d4af37] text-sm flex items-center gap-1 transition">
             View All <FaArrowRight />
           </Link>
         </div>
@@ -344,22 +344,21 @@ export default function Home() {
       {/* Categories Section */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
-          SHOP BY <span className="text-gold-400">CATEGORY</span>
+          SHOP BY <span className="text-[#d4af37]">CATEGORY</span>
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {['Men', 'Women', 'Accessories', 'Sale'].map((category) => (
             <motion.div 
               key={category}
               whileHover={{ scale: 1.05 }}
-              className="relative h-48 rounded-2xl overflow-hidden cursor-pointer group"
+              className="relative h-48 rounded-2xl overflow-hidden cursor-pointer group bg-white/5 border border-white/10 hover:border-[#d4af37]/40"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-gold-400/20 to-black/80" />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/80 to-black/40" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-2xl font-light tracking-widest text-white/90 group-hover:text-gold-400 transition">
+                <span className="text-2xl font-light tracking-widest text-white group-hover:text-[#d4af37] transition">
                   {category}
                 </span>
               </div>
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-gold-400/40 rounded-2xl transition" />
             </motion.div>
           ))}
         </div>
@@ -368,7 +367,7 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-16 px-4 max-w-5xl mx-auto">
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
-          VOICES OF <span className="text-gold-400">LUXE</span>
+          VOICES OF <span className="text-[#d4af37]">LUXE</span>
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[
@@ -379,10 +378,10 @@ export default function Home() {
             <motion.div 
               key={i} 
               whileHover={{ scale: 1.02 }} 
-              className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/5 hover:border-gold-400/20 transition"
+              className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/5 hover:border-[#d4af37]/20 transition"
             >
               <p className="text-white/70 italic text-sm">"{t.text}"</p>
-              <p className="text-gold-400 font-medium mt-4">{t.name}</p>
+              <p className="text-[#d4af37] font-medium mt-4">{t.name}</p>
               <p className="text-white/30 text-xs">{t.role}</p>
             </motion.div>
           ))}
@@ -392,14 +391,14 @@ export default function Home() {
       {/* Instagram Gallery */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
-          FOLLOW US <span className="text-gold-400">@LUXE</span>
+          FOLLOW US <span className="text-[#d4af37]">@LUXE</span>
         </h2>
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
           {[1,2,3,4,5,6].map((i) => (
             <motion.div 
               key={i}
               whileHover={{ scale: 1.05 }}
-              className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg overflow-hidden cursor-pointer"
+              className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg overflow-hidden cursor-pointer border border-white/10"
             >
               <div className="w-full h-full bg-white/5 flex items-center justify-center text-white/20 text-xs">
                 📸
@@ -412,7 +411,7 @@ export default function Home() {
       {/* Newsletter */}
       <section className="py-16 px-4 border-t border-white/5">
         <div className="max-w-xl mx-auto text-center">
-          <h3 className="text-2xl font-light tracking-widest">JOIN THE <span className="text-gold-400">MOVEMENT</span></h3>
+          <h3 className="text-2xl font-light tracking-widest">JOIN THE <span className="text-[#d4af37]">MOVEMENT</span></h3>
           <p className="text-white/40 text-sm mt-2">Subscribe for exclusive drops and 3D experiences</p>
           <div className="flex mt-6 bg-white/5 backdrop-blur-sm rounded-full overflow-hidden border border-white/10">
             <input 
@@ -420,7 +419,7 @@ export default function Home() {
               placeholder="Your email" 
               className="flex-1 bg-transparent px-6 py-4 text-white/80 outline-none text-sm" 
             />
-            <button className="px-8 bg-gold-400 text-black font-medium hover:bg-gold-300 transition">
+            <button className="px-8 bg-white text-black font-medium hover:bg-gray-200 transition">
               Subscribe
             </button>
           </div>
@@ -444,7 +443,7 @@ export default function Home() {
             <p className="text-white/80 font-medium">Info</p>
             <Link href="/about" className="hover:text-white/80 cursor-pointer block">About</Link>
             <Link href="/contact" className="hover:text-white/80 cursor-pointer block">Contact</Link>
-            <Link href="/admin-login" className="hover:text-gold-400 cursor-pointer block text-gold-400/50">Admin Panel</Link>
+            <Link href="/admin-login" className="hover:text-[#d4af37] cursor-pointer block text-[#d4af37]/50">Admin Panel</Link>
           </div>
           <div>
             <p className="text-white/80 font-medium">Follow</p>
