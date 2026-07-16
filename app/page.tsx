@@ -91,7 +91,7 @@ const products = [
 // Product Card Component
 function ProductCard({ product, onQuickView }: any) {
   const [isWishlist, setIsWishlist] = useState(false)
-  
+
   return (
     <motion.div 
       whileHover={{ y: -8 }} 
@@ -139,7 +139,7 @@ function ProductCard({ product, onQuickView }: any) {
 // Quick View Modal
 function QuickViewModal({ product, onClose }: any) {
   if (!product) return null
-  
+
   return (
     <motion.div 
       initial={{ opacity: 0 }} 
