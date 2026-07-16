@@ -86,11 +86,11 @@ const products = [
     rating: 4.5, 
     reviews: 33 
   },
-];
+]
 
 // Product Card Component
 function ProductCard({ product, onQuickView }: any) {
-  const [isWishlist, setIsWishlist] = useState(false);
+  const [isWishlist, setIsWishlist] = useState(false)
   
   return (
     <motion.div 
@@ -133,12 +133,12 @@ function ProductCard({ product, onQuickView }: any) {
         </button>
       </div>
     </motion.div>
-  );
+  )
 }
 
 // Quick View Modal
 function QuickViewModal({ product, onClose }: any) {
-  if (!product) return null;
+  if (!product) return null
   
   return (
     <motion.div 
@@ -184,14 +184,14 @@ function QuickViewModal({ product, onClose }: any) {
         </div>
       </motion.div>
     </motion.div>
-  );
+  )
 }
 
 // Main Home Component
 export default function Home() {
-  const [quickViewProduct, setQuickViewProduct] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [is3DViewerOpen, setIs3DViewerOpen] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [is3DViewerOpen, setIs3DViewerOpen] = useState(false)
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -304,16 +304,16 @@ export default function Home() {
             </div>
           </div>
           <div className="absolute bottom-6 left-6 flex gap-3">
-           <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
-          ⚡ Auto
-          </button>
-           <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
-         🔄 Rotate
-         </button>
-        <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
-       🔍 Zoom
-        </button>
-      </div>
+            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
+              ⚡ Auto
+            </button>
+            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
+              🔄 Rotate
+            </button>
+            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
+              🔍 Zoom
+            </button>
+          </div>
           <div className="absolute top-4 right-4 flex gap-2">
             <div className="w-6 h-6 rounded-full bg-[#d4af37] border border-white/20 cursor-pointer hover:scale-110 transition"></div>
             <div className="w-6 h-6 rounded-full bg-black border border-white/20 cursor-pointer hover:scale-110 transition"></div>
