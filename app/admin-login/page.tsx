@@ -18,9 +18,9 @@ export default function AdminLogin() {
   useEffect(() => {
     const auth = localStorage.getItem('adminAuth') === 'true'
     if (auth) {
-      router.replace('/admin')
+      router.push('/admin')
     }
-  }, [router])
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -35,7 +35,7 @@ export default function AdminLogin() {
       
       // Redirect to admin panel
       setTimeout(() => {
-        router.replace('/admin')
+        router.push('/admin')
       }, 300)
     } else {
       setError('Invalid username or password. Please try again.')
