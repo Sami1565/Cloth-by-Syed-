@@ -11,7 +11,7 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           {/* Logo */}
           <motion.h1 
@@ -39,36 +39,36 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ delay: 0.7 }} 
-            className="mt-8 sm:mt-10 flex justify-center"
+            className="mt-10 sm:mt-12 flex justify-center"
           >
             <button 
               onClick={onOpen3D}
-              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full border-2 border-white/60 text-white font-semibold text-sm sm:text-base tracking-wide hover:bg-white hover:text-black hover:border-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              className="px-8 sm:px-12 py-4 sm:py-5 rounded-full border-2 border-white/60 text-white font-semibold text-base sm:text-lg tracking-wide hover:bg-white hover:text-black hover:border-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3"
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <span>View in 3D</span>
             </button>
           </motion.div>
 
-          {/* Trust Badges */}
+          {/* Trust Badges - Fixed Spacing */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="mt-10 sm:mt-12 flex flex-wrap justify-center gap-4 sm:gap-6 text-white/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase"
+            className="mt-16 sm:mt-20 flex flex-wrap justify-center gap-6 sm:gap-10 text-white/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase"
           >
             <span className="flex items-center gap-2">
-              <span className="w-1 h-1 bg-white/40 rounded-full" />
+              <span className="w-1.5 h-1.5 bg-white/40 rounded-full" />
               Premium Quality
             </span>
             <span className="flex items-center gap-2">
-              <span className="w-1 h-1 bg-white/40 rounded-full" />
+              <span className="w-1.5 h-1.5 bg-white/40 rounded-full" />
               3D Experience
             </span>
             <span className="flex items-center gap-2">
-              <span className="w-1 h-1 bg-white/40 rounded-full" />
+              <span className="w-1.5 h-1.5 bg-white/40 rounded-full" />
               Luxury Brand
             </span>
           </motion.div>
@@ -80,7 +80,7 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.3 }}
-        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 text-white/15 text-[10px] sm:text-xs tracking-[0.3em] animate-bounce"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/15 text-[10px] sm:text-xs tracking-[0.3em] animate-bounce"
       >
         SCROLL
       </motion.div>
