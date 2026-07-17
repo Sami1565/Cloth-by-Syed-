@@ -334,8 +334,22 @@ export default function Home() {
         <ThreeViewer onClose={() => setIs3DViewerOpen(false)} />
       )}
 
-      {/* ===== CATEGORIES SECTION WITH WORKING LINKS ===== */}
+      {/* ===== 3D BUTTON + CATEGORIES SECTION ===== */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
+        {/* 3D Button - Now Above Categories */}
+        <div className="flex justify-center mb-12">
+          <button 
+            onClick={() => setIs3DViewerOpen(true)}
+            className="px-10 sm:px-14 py-4 sm:py-5 bg-[#d4af37] text-black font-bold text-base sm:text-lg tracking-wide hover:bg-[#c5a028] transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 shadow-2xl shadow-[#d4af37]/50 hover:shadow-[#d4af37]/70"
+          >
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span>View in 3D</span>
+          </button>
+        </div>
+
+        {/* Categories */}
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
           SHOP BY <span className="text-[#d4af37]">CATEGORY</span>
         </h2>
