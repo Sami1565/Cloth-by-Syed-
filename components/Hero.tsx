@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-[80vh] w-full flex items-center justify-center overflow-hidden bg-black">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1600&q=80')] bg-cover bg-center opacity-15 mix-blend-overlay" />
@@ -19,7 +19,7 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
 
       {/* Content Container */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center flex flex-col items-center justify-center min-h-[80vh]">
+        <div className="text-center flex flex-col items-center justify-center min-h-[70vh]">
           {/* Logo */}
           <motion.h1 
             initial={{ opacity: 0, y: 30 }} 
@@ -40,31 +40,13 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
           >
             Where fashion meets dimension. Immersive 3D couture.
           </motion.p>
-          
-          {/* Yellow Square 3D Button */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.7 }} 
-            className="mt-12"
-          >
-            <button 
-              onClick={onOpen3D}
-              className="px-10 sm:px-14 py-4 sm:py-5 bg-[#d4af37] text-black font-bold text-base sm:text-lg tracking-wide hover:bg-[#c5a028] transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 shadow-2xl shadow-[#d4af37]/50 hover:shadow-[#d4af37]/70"
-            >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <span>View in 3D</span>
-            </button>
-          </motion.div>
 
           {/* Trust Badges */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="mt-16 flex flex-wrap justify-center gap-6 sm:gap-10 text-white/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase"
+            className="mt-10 flex flex-wrap justify-center gap-6 sm:gap-10 text-white/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase"
           >
             <span className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-[#d4af37] rounded-full" />
@@ -82,7 +64,7 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
         </div>
       </div>
 
-      {/* ===== SCROLL with Line - Mid-Bottom ===== */}
+      {/* SCROLL - Mid-Bottom */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -92,7 +74,7 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
         <span className="text-white/15 text-[10px] sm:text-xs tracking-[0.3em] animate-bounce">
           SCROLL
         </span>
-        <div className="w-px h-12 bg-white/10 animate-pulse" />
+        <div className="w-px h-10 bg-white/10 animate-pulse" />
       </motion.div>
     </section>
   )
