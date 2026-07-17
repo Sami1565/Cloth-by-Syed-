@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
   return (
-    <section className="relative min-h-[80vh] w-full flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black pt-20 sm:pt-24">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1600&q=80')] bg-cover bg-center opacity-15 mix-blend-overlay" />
