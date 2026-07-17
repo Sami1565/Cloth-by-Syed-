@@ -18,7 +18,9 @@ import { IoHeartOutline, IoHeart } from 'react-icons/io5'
 import ThreeViewer from '@/components/ThreeViewer'
 import Hero from '@/components/Hero'
 
-// Dummy products data
+// ============================================================
+// PRODUCT DATA
+// ============================================================
 const products = [
   { 
     id: 1, 
@@ -88,8 +90,25 @@ const products = [
   },
 ]
 
-// Product Card Component
-function ProductCard({ product, onQuickView }: any) {
+// ============================================================
+// PRODUCT CARD COMPONENT
+// ============================================================
+interface ProductCardProps {
+  product: {
+    id: number
+    name: string
+    price: number
+    category: string
+    color: string
+    sizes: string[]
+    image: string
+    rating: number
+    reviews: number
+  }
+  onQuickView: (product: any) => void
+}
+
+function ProductCard({ product, onQuickView }: ProductCardProps) {
   const [isWishlist, setIsWishlist] = useState(false)
 
   return (
@@ -136,8 +155,25 @@ function ProductCard({ product, onQuickView }: any) {
   )
 }
 
-// Quick View Modal
-function QuickViewModal({ product, onClose }: any) {
+// ============================================================
+// QUICK VIEW MODAL
+// ============================================================
+interface QuickViewModalProps {
+  product: {
+    id: number
+    name: string
+    price: number
+    category: string
+    color: string
+    sizes: string[]
+    image: string
+    rating: number
+    reviews: number
+  } | null
+  onClose: () => void
+}
+
+function QuickViewModal({ product, onClose }: QuickViewModalProps) {
   if (!product) return null
 
   return (
@@ -187,7 +223,9 @@ function QuickViewModal({ product, onClose }: any) {
   )
 }
 
-// Main Home Component
+// ============================================================
+// MAIN HOME COMPONENT
+// ============================================================
 export default function Home() {
   const [quickViewProduct, setQuickViewProduct] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -195,7 +233,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-      {/* Header */}
+      {/* ===== HEADER ===== */}
       <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
@@ -275,15 +313,15 @@ export default function Home() {
         )}
       </header>
 
-      {/* Hero Section */}
+      {/* ===== HERO SECTION ===== */}
       <Hero onOpen3D={() => setIs3DViewerOpen(true)} />
 
-      {/* 3D Viewer Modal */}
+      {/* ===== 3D VIEWER MODAL ===== */}
       {is3DViewerOpen && (
         <ThreeViewer onClose={() => setIs3DViewerOpen(false)} />
       )}
 
-      {/* 3D Viewer Section */}
+      {/* ===== 3D VIEWER SECTION ===== */}
       <section className="py-20 px-4 max-w-7xl mx-auto">
         <h2 className="text-3xl font-light tracking-widest text-center text-white/90 mb-12">
           INTERACTIVE <span className="text-[#d4af37]">3D</span> STUDIO
@@ -322,7 +360,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* ===== FEATURED PRODUCTS ===== */}
       <section className="py-12 px-4 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-10">
           <h2 className="text-2xl font-light tracking-widest">NEW <span className="text-[#d4af37]">ARRIVALS</span></h2>
@@ -341,7 +379,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* ===== CATEGORIES ===== */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
           SHOP BY <span className="text-[#d4af37]">CATEGORY</span>
@@ -364,7 +402,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* ===== TESTIMONIALS ===== */}
       <section className="py-16 px-4 max-w-5xl mx-auto">
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
           VOICES OF <span className="text-[#d4af37]">LUXE</span>
@@ -388,7 +426,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Instagram Gallery */}
+      {/* ===== INSTAGRAM GALLERY ===== */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
           FOLLOW US <span className="text-[#d4af37]">@LUXE</span>
@@ -408,7 +446,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter */}
+      {/* ===== NEWSLETTER ===== */}
       <section className="py-16 px-4 border-t border-white/5">
         <div className="max-w-xl mx-auto text-center">
           <h3 className="text-2xl font-light tracking-widest">JOIN THE <span className="text-[#d4af37]">MOVEMENT</span></h3>
@@ -426,7 +464,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ===== FOOTER ===== */}
       <footer className="border-t border-white/5 py-12 px-4 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white/50 text-sm">
           <div>
@@ -454,7 +492,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Quick View Modal */}
+      {/* ===== QUICK VIEW MODAL ===== */}
       {quickViewProduct && (
         <QuickViewModal 
           product={quickViewProduct} 
