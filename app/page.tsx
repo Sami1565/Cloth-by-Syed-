@@ -11,9 +11,7 @@ import {
   FaArrowRight, 
   FaUser,
   FaTimes,
-  FaBars,
-  FaArrowLeft,
-  FaArrowRight as FaArrowRightIcon
+  FaBars 
 } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
 import { IoHeartOutline, IoHeart } from 'react-icons/io5'
@@ -93,16 +91,16 @@ const products = [
 ]
 
 // ============================================================
-// CATEGORIES DATA
+// CATEGORIES DATA WITH LINKS
 // ============================================================
 const categories = [
-  { name: 'NEW IN', icon: '✨', color: 'from-blue-500/20 to-purple-500/20' },
-  { name: 'WOMEN', icon: '👗', color: 'from-pink-500/20 to-rose-500/20' },
-  { name: 'MEN', icon: '👔', color: 'from-blue-600/20 to-cyan-500/20' },
-  { name: 'GIRLS', icon: '🎀', color: 'from-pink-400/20 to-purple-400/20' },
-  { name: 'SALE', icon: '🏷️', color: 'from-red-500/20 to-orange-500/20' },
-  { name: 'UNSTITCHED', icon: '🧵', color: 'from-emerald-500/20 to-teal-500/20' },
-  { name: 'EMBROIDERED', icon: '🌸', color: 'from-amber-500/20 to-yellow-500/20' },
+  { name: 'NEW IN', icon: '✨', color: 'from-blue-500/20 to-purple-500/20', link: '/collections/new-in' },
+  { name: 'WOMEN', icon: '👗', color: 'from-pink-500/20 to-rose-500/20', link: '/collections/women' },
+  { name: 'MEN', icon: '👔', color: 'from-blue-600/20 to-cyan-500/20', link: '/collections/men' },
+  { name: 'GIRLS', icon: '🎀', color: 'from-pink-400/20 to-purple-400/20', link: '/collections/girls' },
+  { name: 'SALE', icon: '🏷️', color: 'from-red-500/20 to-orange-500/20', link: '/collections/sale' },
+  { name: 'UNSTITCHED', icon: '🧵', color: 'from-emerald-500/20 to-teal-500/20', link: '/collections/unstitched' },
+  { name: 'EMBROIDERED', icon: '🌸', color: 'from-amber-500/20 to-yellow-500/20', link: '/collections/embroidered' },
 ]
 
 // ============================================================
@@ -336,17 +334,17 @@ export default function Home() {
         <ThreeViewer onClose={() => setIs3DViewerOpen(false)} />
       )}
 
-      {/* ===== CATEGORIES SECTION ===== */}
+      {/* ===== CATEGORIES SECTION WITH WORKING LINKS ===== */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-2xl font-light tracking-widest text-center mb-12">
           SHOP BY <span className="text-[#d4af37]">CATEGORY</span>
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
           {categories.map((category) => (
-            <motion.div 
-              key={category.name}
-              whileHover={{ scale: 1.05 }}
-              className={`relative rounded-2xl overflow-hidden cursor-pointer group bg-gradient-to-br ${category.color} border border-white/10 hover:border-[#d4af37]/40 transition-all duration-300`}
+            <Link 
+              key={category.name} 
+              href={category.link}
+              className={`relative rounded-2xl overflow-hidden group bg-gradient-to-br ${category.color} border border-white/10 hover:border-[#d4af37]/40 transition-all duration-300`}
             >
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
               <div className="relative p-6 text-center h-32 flex flex-col items-center justify-center">
@@ -354,9 +352,11 @@ export default function Home() {
                 <span className="text-white/90 font-medium text-sm tracking-wider group-hover:text-[#d4af37] transition">
                   {category.name}
                 </span>
-                <span className="text-white/30 text-[10px] tracking-widest mt-1">SHOP NOW</span>
+                <span className="text-white/40 text-[10px] tracking-widest mt-1 group-hover:text-[#d4af37] transition">
+                  SHOP NOW →
+                </span>
               </div>
-            </motion.div>
+            </Link>
           ))}
         </div>
       </section>
@@ -393,7 +393,7 @@ export default function Home() {
             </h3>
             <p className="text-white/50 mt-2">Up to 50% off on selected items</p>
             <Link 
-              href="/shop" 
+              href="/collections/sale" 
               className="inline-block mt-6 px-8 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition"
             >
               Shop Now
