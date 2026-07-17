@@ -11,7 +11,9 @@ import {
   FaArrowRight, 
   FaUser,
   FaTimes,
-  FaBars 
+  FaBars,
+  FaArrowLeft,
+  FaArrowRight as FaArrowRightIcon
 } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
 import { IoHeartOutline, IoHeart } from 'react-icons/io5'
@@ -88,6 +90,19 @@ const products = [
     rating: 4.5, 
     reviews: 33 
   },
+]
+
+// ============================================================
+// CATEGORIES DATA
+// ============================================================
+const categories = [
+  { name: 'NEW IN', icon: '✨', color: 'from-blue-500/20 to-purple-500/20' },
+  { name: 'WOMEN', icon: '👗', color: 'from-pink-500/20 to-rose-500/20' },
+  { name: 'MEN', icon: '👔', color: 'from-blue-600/20 to-cyan-500/20' },
+  { name: 'GIRLS', icon: '🎀', color: 'from-pink-400/20 to-purple-400/20' },
+  { name: 'SALE', icon: '🏷️', color: 'from-red-500/20 to-orange-500/20' },
+  { name: 'UNSTITCHED', icon: '🧵', color: 'from-emerald-500/20 to-teal-500/20' },
+  { name: 'EMBROIDERED', icon: '🌸', color: 'from-amber-500/20 to-yellow-500/20' },
 ]
 
 // ============================================================
@@ -321,55 +336,44 @@ export default function Home() {
         <ThreeViewer onClose={() => setIs3DViewerOpen(false)} />
       )}
 
-      {/* ===== 3D VIEWER SECTION ===== */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-light tracking-widest text-center text-white/90 mb-12">
-          INTERACTIVE <span className="text-[#d4af37]">3D</span> STUDIO
+      {/* ===== CATEGORIES SECTION ===== */}
+      <section className="py-16 px-4 max-w-7xl mx-auto">
+        <h2 className="text-2xl font-light tracking-widest text-center mb-12">
+          SHOP BY <span className="text-[#d4af37]">CATEGORY</span>
         </h2>
-        <div className="w-full h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-zinc-900 to-black border border-white/10 flex items-center justify-center relative">
-          <div className="absolute inset-0 flex items-center justify-center text-white/10 text-6xl font-bold tracking-widest">
-            3D
-          </div>
-          <div className="relative w-64 h-80">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#d4af37]/20 to-[#d4af37]/20 blur-3xl rounded-full animate-pulse" />
-            <div className="relative w-full h-full flex items-center justify-center">
-              <div className="w-40 h-56 bg-gradient-to-br from-[#d4af37]/80 to-[#d4af37]/30 rounded-3xl shadow-2xl transform rotate-6 hover:rotate-0 transition-all duration-700" 
-                   style={{ boxShadow: '0 25px 60px rgba(212,175,55,0.3)' }}>
-                <div className="w-full h-full flex items-center justify-center text-black/30 text-sm font-bold tracking-widest">
-                  LUXE
-                </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+          {categories.map((category) => (
+            <motion.div 
+              key={category.name}
+              whileHover={{ scale: 1.05 }}
+              className={`relative rounded-2xl overflow-hidden cursor-pointer group bg-gradient-to-br ${category.color} border border-white/10 hover:border-[#d4af37]/40 transition-all duration-300`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
+              <div className="relative p-6 text-center h-32 flex flex-col items-center justify-center">
+                <span className="text-2xl mb-2">{category.icon}</span>
+                <span className="text-white/90 font-medium text-sm tracking-wider group-hover:text-[#d4af37] transition">
+                  {category.name}
+                </span>
+                <span className="text-white/30 text-[10px] tracking-widest mt-1">SHOP NOW</span>
               </div>
-            </div>
-          </div>
-          <div className="absolute bottom-6 left-6 flex gap-3">
-            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
-              ⚡ Auto
-            </button>
-            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
-              🔄 Rotate
-            </button>
-            <button className="px-4 py-2 rounded-full text-white/80 text-xs hover:text-[#d4af37] transition bg-white/5 backdrop-blur-sm border border-white/10">
-              🔍 Zoom
-            </button>
-          </div>
-          <div className="absolute top-4 right-4 flex gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#d4af37] border border-white/20 cursor-pointer hover:scale-110 transition"></div>
-            <div className="w-6 h-6 rounded-full bg-black border border-white/20 cursor-pointer hover:scale-110 transition"></div>
-            <div className="w-6 h-6 rounded-full bg-white border border-white/20 cursor-pointer hover:scale-110 transition"></div>
-          </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
       {/* ===== FEATURED PRODUCTS ===== */}
       <section className="py-12 px-4 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-10">
-          <h2 className="text-2xl font-light tracking-widest">NEW <span className="text-[#d4af37]">ARRIVALS</span></h2>
+          <div>
+            <h2 className="text-2xl font-light tracking-widest">NEW <span className="text-[#d4af37]">ARRIVALS</span></h2>
+            <p className="text-white/30 text-sm mt-1">Discover our latest collection</p>
+          </div>
           <Link href="/shop" className="text-white/40 hover:text-[#d4af37] text-sm flex items-center gap-1 transition">
             View All <FaArrowRight />
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {products.map((product) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {products.slice(0, 4).map((product) => (
             <ProductCard 
               key={product.id} 
               product={product} 
@@ -379,26 +383,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CATEGORIES ===== */}
+      {/* ===== PROMO BANNER ===== */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
-        <h2 className="text-2xl font-light tracking-widest text-center mb-12">
-          SHOP BY <span className="text-[#d4af37]">CATEGORY</span>
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {['Men', 'Women', 'Accessories', 'Sale'].map((category) => (
-            <motion.div 
-              key={category}
-              whileHover={{ scale: 1.05 }}
-              className="relative h-48 rounded-2xl overflow-hidden cursor-pointer group bg-white/5 border border-white/10 hover:border-[#d4af37]/40"
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#d4af37]/20 via-[#d4af37]/10 to-black border border-[#d4af37]/20">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200&q=80')] bg-cover bg-center opacity-10" />
+          <div className="relative p-8 sm:p-12 text-center">
+            <h3 className="text-3xl sm:text-4xl font-light tracking-widest">
+              SUMMER <span className="text-[#d4af37]">SALE</span>
+            </h3>
+            <p className="text-white/50 mt-2">Up to 50% off on selected items</p>
+            <Link 
+              href="/shop" 
+              className="inline-block mt-6 px-8 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-black/80 to-black/40" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-2xl font-light tracking-widest text-white group-hover:text-[#d4af37] transition">
-                  {category}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+              Shop Now
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -421,26 +421,6 @@ export default function Home() {
               <p className="text-white/70 italic text-sm">"{t.text}"</p>
               <p className="text-[#d4af37] font-medium mt-4">{t.name}</p>
               <p className="text-white/30 text-xs">{t.role}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ===== INSTAGRAM GALLERY ===== */}
-      <section className="py-16 px-4 max-w-7xl mx-auto">
-        <h2 className="text-2xl font-light tracking-widest text-center mb-12">
-          FOLLOW US <span className="text-[#d4af37]">@LUXE</span>
-        </h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-          {[1,2,3,4,5,6].map((i) => (
-            <motion.div 
-              key={i}
-              whileHover={{ scale: 1.05 }}
-              className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg overflow-hidden cursor-pointer border border-white/10"
-            >
-              <div className="w-full h-full bg-white/5 flex items-center justify-center text-white/20 text-xs">
-                📸
-              </div>
             </motion.div>
           ))}
         </div>
