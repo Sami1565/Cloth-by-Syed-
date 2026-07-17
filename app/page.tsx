@@ -335,9 +335,9 @@ export default function Home() {
       )}
 
       {/* ===== 3D BUTTON + CATEGORIES SECTION ===== */}
-      <section className="py-16 px-4 max-w-7xl mx-auto pt-24 sm:pt-28">
+      <section className="py-12 px-4 max-w-7xl mx-auto pt-20 sm:pt-24">
         {/* 3D Button - Now Above Categories */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-10">
           <button 
             onClick={() => setIs3DViewerOpen(true)}
             className="px-10 sm:px-14 py-4 sm:py-5 bg-[#d4af37] text-black font-bold text-base sm:text-lg tracking-wide hover:bg-[#c5a028] transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 shadow-2xl shadow-[#d4af37]/50 hover:shadow-[#d4af37]/70"
@@ -350,7 +350,7 @@ export default function Home() {
         </div>
 
         {/* Categories */}
-        <h2 className="text-2xl font-light tracking-widest text-center mb-12">
+        <h2 className="text-2xl font-light tracking-widest text-center mb-10">
           SHOP BY <span className="text-[#d4af37]">CATEGORY</span>
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
