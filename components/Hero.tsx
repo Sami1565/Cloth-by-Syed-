@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
@@ -35,28 +34,16 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
             Where fashion meets dimension. Immersive 3D couture.
           </motion.p>
           
-          {/* ===== BUTTONS ===== */}
+          {/* ===== SINGLE BUTTON - View in 3D ===== */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ delay: 0.7 }} 
-            className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-5"
+            className="mt-8 sm:mt-10 flex justify-center"
           >
-            {/* Primary Button - Explore Collection */}
-            <Link 
-              href="/shop" 
-              className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-white text-black font-semibold text-sm sm:text-base tracking-wide hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2"
-            >
-              <span>Explore Collection</span>
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            
-            {/* Secondary Button - View in 3D */}
             <button 
               onClick={onOpen3D}
-              className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 rounded-full border-2 border-white/60 text-white font-semibold text-sm sm:text-base tracking-wide hover:bg-white hover:text-black hover:border-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full border-2 border-white/60 text-white font-semibold text-sm sm:text-base tracking-wide hover:bg-white hover:text-black hover:border-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
