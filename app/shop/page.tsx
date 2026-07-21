@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { FaSearch, FaStar, FaChevronDown, FaChevronUp } from 'react-icons/fa'
+import { FaSearch, FaStar } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
 import { IoHeartOutline } from 'react-icons/io5'
 
@@ -71,21 +71,20 @@ const allProducts = [
 
 // Sub-category mapping for each main category
 const subCategories: { [key: string]: string[] } = {
-  'Men': ['All', 'Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
-  'Women': ['All', 'Dresses', 'Tops', 'Traditional', 'Bottoms'],
-  'Kids': ['All', 'T-Shirts', 'Shoes', 'Dresses', 'Jackets', 'Pants'],
-  'Accessories': ['All', 'Shoes', 'Belts', 'Bags', 'Watches', 'Eyewear', 'Wallets', 'Scarves'],
-  'Unstitched': ['All', 'Fabrics'],
-  'Embroidered': ['All', 'Kurtas', 'Shawls', 'Dupattas'],
-  'New In': ['All', 'Dresses', 'Jackets', 'Shoes', 'Bags'],
-  'Sale': ['All', 'Jackets', 'Dresses', 'Shoes', 'Pants', 'Tops'],
+  'Men': ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
+  'Women': ['Dresses', 'Tops', 'Traditional', 'Bottoms'],
+  'Kids': ['T-Shirts', 'Shoes', 'Dresses', 'Jackets', 'Pants'],
+  'Accessories': ['Shoes', 'Belts', 'Bags', 'Watches', 'Eyewear', 'Wallets', 'Scarves'],
+  'Unstitched': ['Fabrics'],
+  'Embroidered': ['Kurtas', 'Shawls', 'Dupattas'],
+  'New In': ['Dresses', 'Jackets', 'Shoes', 'Bags'],
+  'Sale': ['Jackets', 'Dresses', 'Shoes', 'Pants', 'Tops'],
 }
 
 export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedSubCategory, setSelectedSubCategory] = useState('All')
   const [searchTerm, setSearchTerm] = useState('')
-  const [showSubCategories, setShowSubCategories] = useState(false)
 
   // Filter products based on category, sub-category and search
   const filteredProducts = allProducts.filter(product => {
@@ -101,8 +100,8 @@ export default function Shop() {
 
   // Get sub-categories for selected category
   const getSubCategories = () => {
-    if (selectedCategory === 'All') return ['All']
-    return subCategories[selectedCategory] || ['All']
+    if (selectedCategory === 'All') return []
+    return subCategories[selectedCategory] || []
   }
 
   // Get category icon
@@ -158,7 +157,6 @@ export default function Shop() {
 
   // Get product count for each sub-category
   const getSubCategoryCount = (sub: string) => {
-    if (sub === 'All') return filteredProducts.length
     return allProducts.filter(p => p.subCategory === sub && (selectedCategory === 'All' || p.category === selectedCategory)).length
   }
 
@@ -216,7 +214,6 @@ export default function Shop() {
               onClick={() => {
                 setSelectedCategory(category)
                 setSelectedSubCategory('All')
-                setShowSubCategories(false)
               }}
               className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm transition flex items-center gap-1 sm:gap-1.5 ${
                 selectedCategory === category
@@ -233,23 +230,26 @@ export default function Shop() {
           ))}
         </div>
 
-        {/* Sub-Category Toggle Button */}
-        {selectedCategory !== 'All' && (
-          <button
-            onClick={() => setShowSubCategories(!showSubCategories)}
-            className="flex items-center gap-2 text-white/40 hover:text-white/70 text-sm mb-4 transition"
-          >
-            {showSubCategories ? <FaChevronUp /> : <FaChevronDown />}
-            {showSubCategories ? 'Hide Sub-Categories' : 'Show Sub-Categories'}
-          </button>
-        )}
-
-        {/* Sub-Category Filters */}
-        {showSubCategories && selectedCategory !== 'All' && (
+        {/* Sub-Category Filters - ALWAYS VISIBLE when a category is selected */}
+        {selectedCategory !== 'All' && getSubCategories().length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
             <span className="text-white/40 text-xs uppercase tracking-wider mr-2 flex items-center">
               Sub-Categories:
             </span>
+            <button
+              onClick={() => setSelectedSubCategory('All')}
+              className={`px-3 py-1.5 rounded-full text-xs transition flex items-center gap-1 ${
+                selectedSubCategory === 'All'
+                  ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
+                  : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              <span>📋</span>
+              All
+              <span className="text-[10px] text-white/30">
+                ({getSubCategoryCount('All')})
+              </span>
+            </button>
             {getSubCategories().map((sub) => (
               <button
                 key={sub}
