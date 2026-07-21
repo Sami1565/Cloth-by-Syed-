@@ -19,8 +19,8 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
 
       {/* Content Container */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center flex flex-col items-center justify-center min-h-[65vh]">
-          {/* Logo - Reduced margin */}
+        <div className="text-center flex flex-col items-center justify-center min-h-[55vh]">
+          {/* Logo */}
           <motion.h1 
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -31,50 +31,50 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
             <span className="text-white">STUDIO</span>
           </motion.h1>
           
-          {/* Tagline - Reduced margin */}
+          {/* Tagline - Single line with proper spacing */}
           <motion.p 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             transition={{ delay: 0.4 }} 
-            className="text-white/50 text-base sm:text-lg md:text-xl mt-3 sm:mt-4 tracking-widest font-light max-w-2xl mx-auto px-4"
+            className="text-white/50 text-base sm:text-lg md:text-xl mt-3 tracking-widest font-light max-w-2xl mx-auto px-4 leading-snug"
           >
             Where fashion meets dimension. Immersive 3D couture.
           </motion.p>
 
-          {/* Trust Badges - Reduced margin */}
+          {/* Trust Badges - Compact */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4 sm:gap-8 text-white/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase"
+            className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-6 text-white/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase"
           >
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#d4af37] rounded-full" />
+            <span className="flex items-center gap-1.5 whitespace-nowrap">
+              <span className="w-1 h-1 bg-[#d4af37] rounded-full flex-shrink-0" />
               Premium Quality
             </span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#d4af37] rounded-full" />
+            <span className="flex items-center gap-1.5 whitespace-nowrap">
+              <span className="w-1 h-1 bg-[#d4af37] rounded-full flex-shrink-0" />
               3D Experience
             </span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#d4af37] rounded-full" />
+            <span className="flex items-center gap-1.5 whitespace-nowrap">
+              <span className="w-1 h-1 bg-[#d4af37] rounded-full flex-shrink-0" />
               Luxury Brand
             </span>
           </motion.div>
         </div>
       </div>
 
-      {/* SCROLL - Mid-Bottom */}
+      {/* SCROLL */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-[12%] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
+        className="absolute bottom-[8%] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
       >
         <span className="text-white/15 text-[10px] sm:text-xs tracking-[0.3em] animate-bounce">
           SCROLL
         </span>
-        <div className="w-px h-8 bg-white/10 animate-pulse" />
+        <div className="w-px h-6 bg-white/10 animate-pulse" />
       </motion.div>
     </section>
   )
