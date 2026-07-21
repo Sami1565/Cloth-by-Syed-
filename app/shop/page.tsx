@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { FaSearch, FaStar } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
+import { IoHeartOutline } from 'react-icons/io5'
 
 const products = [
   { id: 1, name: 'Velocity Jacket', price: 249, category: 'Men', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=500&fit=crop', rating: 4.8, reviews: 42 },
@@ -11,8 +12,6 @@ const products = [
   { id: 4, name: 'Cargo Pants', price: 134, category: 'Men', image: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=400&h=500&fit=crop', rating: 4.6, reviews: 29 },
   { id: 5, name: 'Silk Blouse', price: 119, category: 'Women', image: 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=400&h=500&fit=crop', rating: 4.9, reviews: 47 },
   { id: 6, name: 'Leather Belt', price: 89, category: 'Accessories', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop', rating: 4.5, reviews: 33 },
-  { id: 7, name: 'Wool Sweater', price: 159, category: 'Men', image: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=400&h=500&fit=crop', rating: 4.7, reviews: 28 },
-  { id: 8, name: 'Leather Jacket', price: 299, category: 'Men', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=500&fit=crop', rating: 4.8, reviews: 51 },
 ]
 
 export default function Shop() {
@@ -22,23 +21,23 @@ export default function Shop() {
       <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-gold-400">LUXE</h1>
+            <h1 className="text-2xl font-bold text-[#d4af37]">LUXE</h1>
             <span className="text-[10px] tracking-[0.3em] text-white/40 uppercase hidden sm:inline">Studio</span>
           </Link>
           <nav className="hidden md:flex gap-8 text-sm font-light">
-            <Link href="/" className="hover:text-gold-300 transition">Home</Link>
-            <Link href="/shop" className="text-gold-400 transition">Shop</Link>
-            <Link href="/collections" className="hover:text-gold-300 transition">Collections</Link>
-            <Link href="/about" className="hover:text-gold-300 transition">About</Link>
-            <Link href="/contact" className="hover:text-gold-300 transition">Contact</Link>
+            <Link href="/" className="hover:text-[#d4af37] transition">Home</Link>
+            <Link href="/shop" className="text-[#d4af37] transition">Shop</Link>
+            <Link href="/collections" className="hover:text-[#d4af37] transition">Collections</Link>
+            <Link href="/about" className="hover:text-[#d4af37] transition">About</Link>
+            <Link href="/contact" className="hover:text-[#d4af37] transition">Contact</Link>
           </nav>
           <div className="flex items-center gap-4">
-            <FaSearch className="text-white/40 hover:text-gold-300 transition cursor-pointer" />
+            <FaSearch className="text-white/40 hover:text-[#d4af37] transition cursor-pointer" />
             <div className="relative">
-              <FiShoppingCart className="text-white/40 hover:text-gold-300 transition cursor-pointer text-xl" />
-              <span className="absolute -top-1 -right-2 bg-gold-400 text-black text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">3</span>
+              <FiShoppingCart className="text-white/40 hover:text-[#d4af37] transition cursor-pointer text-xl" />
+              <span className="absolute -top-1 -right-2 bg-[#d4af37] text-black text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">3</span>
             </div>
-            <button className="px-4 py-1.5 rounded-full bg-gold-400 text-black text-sm font-medium hover:bg-gold-300 transition">
+            <button className="px-4 py-1.5 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition">
               Sign In
             </button>
           </div>
@@ -47,12 +46,12 @@ export default function Shop() {
 
       {/* Shop Content */}
       <section className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
-        <h1 className="text-4xl font-light tracking-widest mb-4">SHOP <span className="text-gold-400">COLLECTION</span></h1>
+        <h1 className="text-4xl font-light tracking-widest mb-4">SHOP <span className="text-[#d4af37]">COLLECTION</span></h1>
         <p className="text-white/50 mb-8">Discover our latest arrivals and timeless classics</p>
         
         {/* Filters */}
         <div className="flex flex-wrap gap-3 mb-8">
-          <button className="px-4 py-2 rounded-full bg-gold-400/20 text-gold-400 text-sm hover:bg-gold-400/30 transition">All</button>
+          <button className="px-4 py-2 rounded-full bg-[#d4af37]/20 text-[#d4af37] text-sm hover:bg-[#d4af37]/30 transition">All</button>
           <button className="px-4 py-2 rounded-full bg-white/5 text-white/50 text-sm hover:bg-white/20 transition">Men</button>
           <button className="px-4 py-2 rounded-full bg-white/5 text-white/50 text-sm hover:bg-white/20 transition">Women</button>
           <button className="px-4 py-2 rounded-full bg-white/5 text-white/50 text-sm hover:bg-white/20 transition">Accessories</button>
@@ -62,13 +61,16 @@ export default function Shop() {
         {/* Product Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {products.map((product) => (
-            <div key={product.id} className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-gold-400/40 transition-all duration-500">
+            <div key={product.id} className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all duration-500">
               <div className="relative aspect-[3/4] overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.name} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
                 />
+                <button className="absolute top-3 right-3 p-2 rounded-full bg-black/70 backdrop-blur text-white/70 hover:text-red-400 transition">
+                  <IoHeartOutline />
+                </button>
               </div>
               <div className="p-5">
                 <div className="flex justify-between items-start">
@@ -76,13 +78,13 @@ export default function Shop() {
                     <p className="text-white/50 text-xs uppercase tracking-wider">{product.category}</p>
                     <h3 className="text-white font-semibold text-lg mt-1">{product.name}</h3>
                   </div>
-                  <span className="text-gold-400 font-bold text-xl">${product.price}</span>
+                  <span className="text-[#d4af37] font-bold text-xl">${product.price}</span>
                 </div>
                 <div className="flex items-center gap-1 mt-2 text-yellow-400 text-sm">
                   <FaStar /> <span className="text-white/80 text-xs">{product.rating}</span>
                   <span className="text-white/30 text-xs ml-2">({product.reviews})</span>
                 </div>
-                <button className="mt-4 w-full py-2.5 rounded-full bg-gold-400/20 text-gold-300 font-medium hover:bg-gold-400/30 transition border border-gold-400/30 text-sm">
+                <button className="mt-4 w-full py-2.5 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition border border-white/20 text-sm">
                   Add to Bag
                 </button>
               </div>
