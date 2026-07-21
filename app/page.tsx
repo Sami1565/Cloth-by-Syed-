@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { FaStar, FaArrowLeft, FaFilter } from 'react-icons/fa'
+import { FaStar, FaArrowLeft } from 'react-icons/fa'
 import { IoHeartOutline, IoHeart } from 'react-icons/io5'
 import { motion } from 'framer-motion'
 
@@ -77,13 +77,40 @@ const allProducts = [
   },
 ]
 
-// Category display names and icons
-const categoryInfo: { [key: string]: { displayName: string, icon: string, description: string } } = {
-  'men': { displayName: 'Men', icon: '👔', description: 'Premium menswear collection' },
-  'women': { displayName: 'Women', icon: '👗', description: 'Elegant womenswear collection' },
-  'accessories': { displayName: 'Accessories', icon: '👜', description: 'Complete your look with our accessories' },
-  'new-in': { displayName: 'New In', icon: '✨', description: 'Latest arrivals' },
-  'sale': { displayName: 'Sale', icon: '🏷️', description: 'Limited time offers' },
+// Category mapping - slug to display name
+const categoryMap: { [key: string]: string } = {
+  'men': 'Men',
+  'women': 'Women',
+  'accessories': 'Accessories',
+  'new-in': 'New In',
+  'sale': 'Sale',
+  'girls': 'Girls',
+  'unstitched': 'Unstitched',
+  'embroidered': 'Embroidered'
+}
+
+// Category icons
+const categoryIcons: { [key: string]: string } = {
+  'men': '👔',
+  'women': '👗',
+  'accessories': '👜',
+  'new-in': '✨',
+  'sale': '🏷️',
+  'girls': '🎀',
+  'unstitched': '🧵',
+  'embroidered': '🌸'
+}
+
+// Category descriptions
+const categoryDescriptions: { [key: string]: string } = {
+  'men': 'Premium menswear collection',
+  'women': 'Elegant womenswear collection',
+  'accessories': 'Complete your look with our accessories',
+  'new-in': 'Latest arrivals',
+  'sale': 'Limited time offers',
+  'girls': 'Stylish girls collection',
+  'unstitched': 'Customize your style',
+  'embroidered': 'Beautiful embroidered pieces'
 }
 
 export default function CategoryPage() {
@@ -93,12 +120,14 @@ export default function CategoryPage() {
   const [isWishlist, setIsWishlist] = useState<{ [key: number]: boolean }>({})
   const [sortBy, setSortBy] = useState<string>('featured')
 
-  // Get category info
-  const category = categoryInfo[slug] || { displayName: slug.charAt(0).toUpperCase() + slug.slice(1), icon: '📦', description: 'Collection' }
+  // Get category display name from slug
+  const categoryName = categoryMap[slug] || slug.charAt(0).toUpperCase() + slug.slice(1)
+  const categoryIcon = categoryIcons[slug] || '📦'
+  const categoryDescription = categoryDescriptions[slug] || 'Collection'
   
-  // Filter products by category
+  // Filter products by category - FIXED: match category name
   let categoryProducts = allProducts.filter(product => 
-    product.category.toLowerCase() === category.displayName.toLowerCase()
+    product.category.toLowerCase() === categoryName.toLowerCase()
   )
 
   // Sort products
@@ -117,19 +146,25 @@ export default function CategoryPage() {
     }))
   }
 
-  // If no products found
+  // If no products found - show better message
   if (categoryProducts.length === 0) {
     return (
       <main className="min-h-screen bg-black text-white pt-32">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <div className="text-6xl mb-4">{category.icon}</div>
+          <div className="text-6xl mb-4">{categoryIcon}</div>
           <h1 className="text-3xl font-light tracking-widest mb-4">
-            {category.displayName} <span className="text-[#d4af37]">Collection</span>
+            {categoryName} <span className="text-[#d4af37]">Collection</span>
           </h1>
-          <p className="text-white/50">No products found in this category</p>
-          <Link href="/" className="inline-block mt-6 px-8 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition">
-            Back to Home
-          </Link>
+          <p className="text-white/50">No products found in this category yet.</p>
+          <p className="text-white/30 text-sm mt-2">Check back soon for new arrivals!</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Link href="/" className="inline-block px-8 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition">
+              Back to Home
+            </Link>
+            <Link href="/shop" className="inline-block px-8 py-3 rounded-full border border-white/20 text-white/80 font-medium hover:bg-white/10 transition">
+              View All Products
+            </Link>
+          </div>
         </div>
       </main>
     )
@@ -139,17 +174,15 @@ export default function CategoryPage() {
     <main className="min-h-screen bg-black text-white pt-32">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="text-white/50 hover:text-[#d4af37] transition p-2 rounded-full hover:bg-white/5">
-              <FaArrowLeft />
-            </Link>
-            <div>
-              <h1 className="text-3xl font-light tracking-widest">
-                {category.icon} {category.displayName} <span className="text-[#d4af37]">Collection</span>
-              </h1>
-              <p className="text-white/40 text-sm mt-1">{category.description}</p>
-            </div>
+        <div className="flex items-center gap-4 mb-6">
+          <Link href="/" className="text-white/50 hover:text-[#d4af37] transition p-2 rounded-full hover:bg-white/5">
+            <FaArrowLeft />
+          </Link>
+          <div>
+            <h1 className="text-3xl font-light tracking-widest">
+              {categoryIcon} {categoryName} <span className="text-[#d4af37]">Collection</span>
+            </h1>
+            <p className="text-white/40 text-sm mt-1">{categoryDescription}</p>
           </div>
         </div>
 
