@@ -11,7 +11,6 @@ import { useCartStore } from '@/store/cartStore'
 // PRODUCT DATA
 // ============================================================
 const allProducts = [
-  // MEN'S PRODUCTS
   { id: 1, name: 'Velocity Jacket', price: 249, category: 'Men', subCategory: 'Jackets', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=500&fit=crop', rating: 4.8, reviews: 42 },
   { id: 2, name: 'Cargo Pants', price: 134, category: 'Men', subCategory: 'Pants', image: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=400&h=500&fit=crop', rating: 4.6, reviews: 29 },
   { id: 3, name: 'Wool Sweater', price: 159, category: 'Men', subCategory: 'Sweaters', image: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=400&h=500&fit=crop', rating: 4.7, reviews: 28 },
@@ -21,8 +20,6 @@ const allProducts = [
   { id: 7, name: 'Denim Jeans', price: 119, category: 'Men', subCategory: 'Pants', image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=500&fit=crop', rating: 4.6, reviews: 44 },
   { id: 8, name: 'T-Shirt', price: 49, category: 'Men', subCategory: 'T-Shirts', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop', rating: 4.4, reviews: 56 },
   { id: 9, name: 'Hoodie', price: 99, category: 'Men', subCategory: 'Sweaters', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=500&fit=crop', rating: 4.5, reviews: 38 },
-
-  // WOMEN'S PRODUCTS
   { id: 10, name: 'Aura Dress', price: 189, category: 'Women', subCategory: 'Dresses', image: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400&h=500&fit=crop', rating: 4.9, reviews: 38 },
   { id: 11, name: 'Silk Blouse', price: 119, category: 'Women', subCategory: 'Tops', image: 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=400&h=500&fit=crop', rating: 4.9, reviews: 47 },
   { id: 12, name: 'Summer Dress', price: 149, category: 'Women', subCategory: 'Dresses', image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=500&fit=crop', rating: 4.6, reviews: 35 },
@@ -31,15 +28,11 @@ const allProducts = [
   { id: 15, name: 'Party Gown', price: 249, category: 'Women', subCategory: 'Dresses', image: 'https://images.unsplash.com/photo-1566174053873-3156b1a6c5a6?w=400&h=500&fit=crop', rating: 4.9, reviews: 52 },
   { id: 16, name: 'Jeans', price: 99, category: 'Women', subCategory: 'Bottoms', image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=500&fit=crop', rating: 4.5, reviews: 33 },
   { id: 17, name: 'Skirt', price: 69, category: 'Women', subCategory: 'Bottoms', image: 'https://images.unsplash.com/photo-1583496661160-f4b2dafb1fd3?w=400&h=500&fit=crop', rating: 4.6, reviews: 41 },
-
-  // KIDS' PRODUCTS
   { id: 18, name: 'Kids T-Shirt', price: 49, category: 'Kids', subCategory: 'T-Shirts', image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&h=500&fit=crop', rating: 4.7, reviews: 18 },
   { id: 19, name: 'Kids Sneakers', price: 69, category: 'Kids', subCategory: 'Shoes', image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&h=500&fit=crop', rating: 4.6, reviews: 24 },
   { id: 20, name: 'Kids Dress', price: 59, category: 'Kids', subCategory: 'Dresses', image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=500&fit=crop', rating: 4.8, reviews: 21 },
   { id: 21, name: 'Kids Jacket', price: 79, category: 'Kids', subCategory: 'Jackets', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=500&fit=crop', rating: 4.5, reviews: 16 },
   { id: 22, name: 'Kids Pants', price: 39, category: 'Kids', subCategory: 'Pants', image: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=400&h=500&fit=crop', rating: 4.4, reviews: 19 },
-
-  // ACCESSORIES
   { id: 23, name: 'Nova Sneakers', price: 159, category: 'Accessories', subCategory: 'Shoes', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop', rating: 4.7, reviews: 56 },
   { id: 24, name: 'Leather Belt', price: 89, category: 'Accessories', subCategory: 'Belts', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop', rating: 4.5, reviews: 33 },
   { id: 25, name: 'Crossbody Bag', price: 79, category: 'Accessories', subCategory: 'Bags', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=500&fit=crop', rating: 4.4, reviews: 22 },
@@ -47,25 +40,17 @@ const allProducts = [
   { id: 27, name: 'Sunglasses', price: 129, category: 'Accessories', subCategory: 'Eyewear', image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=500&fit=crop', rating: 4.6, reviews: 38 },
   { id: 28, name: 'Leather Wallet', price: 49, category: 'Accessories', subCategory: 'Wallets', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=500&fit=crop', rating: 4.7, reviews: 41 },
   { id: 29, name: 'Scarf', price: 39, category: 'Accessories', subCategory: 'Scarves', image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&h=500&fit=crop', rating: 4.3, reviews: 27 },
-
-  // UNSTITCHED
   { id: 30, name: 'Unstitched Fabric', price: 99, category: 'Unstitched', subCategory: 'Fabrics', image: 'https://images.unsplash.com/photo-1601071651953-a2c10558bae3?w=400&h=500&fit=crop', rating: 4.5, reviews: 31 },
   { id: 31, name: 'Premium Cotton', price: 129, category: 'Unstitched', subCategory: 'Fabrics', image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&h=500&fit=crop', rating: 4.6, reviews: 27 },
   { id: 32, name: 'Silk Fabric', price: 199, category: 'Unstitched', subCategory: 'Fabrics', image: 'https://images.unsplash.com/photo-1596783074918-c84cb5fc0bc0?w=400&h=500&fit=crop', rating: 4.8, reviews: 34 },
   { id: 33, name: 'Linen Fabric', price: 89, category: 'Unstitched', subCategory: 'Fabrics', image: 'https://images.unsplash.com/photo-1601071651953-a2c10558bae3?w=400&h=500&fit=crop', rating: 4.4, reviews: 19 },
-
-  // EMBROIDERED
   { id: 34, name: 'Embroidered Kurta', price: 179, category: 'Embroidered', subCategory: 'Kurtas', image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&h=500&fit=crop', rating: 4.9, reviews: 44 },
   { id: 35, name: 'Embroidered Shawl', price: 89, category: 'Embroidered', subCategory: 'Shawls', image: 'https://images.unsplash.com/photo-1596783074918-c84cb5fc0bc0?w=400&h=500&fit=crop', rating: 4.7, reviews: 36 },
   { id: 36, name: 'Embroidered Dupatta', price: 69, category: 'Embroidered', subCategory: 'Dupattas', image: 'https://images.unsplash.com/photo-1601071651953-a2c10558bae3?w=400&h=500&fit=crop', rating: 4.6, reviews: 29 },
-
-  // NEW IN
   { id: 37, name: 'Summer Collection Dress', price: 199, category: 'New In', subCategory: 'Dresses', image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=500&fit=crop', rating: 4.9, reviews: 26 },
   { id: 38, name: 'New Arrival Jacket', price: 279, category: 'New In', subCategory: 'Jackets', image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=500&fit=crop', rating: 4.8, reviews: 19 },
   { id: 39, name: 'Trendy Sneakers', price: 169, category: 'New In', subCategory: 'Shoes', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop', rating: 4.7, reviews: 23 },
   { id: 40, name: 'Designer Handbag', price: 249, category: 'New In', subCategory: 'Bags', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=500&fit=crop', rating: 4.8, reviews: 31 },
-
-  // SALE
   { id: 41, name: 'Sale Leather Jacket', price: 199, category: 'Sale', subCategory: 'Jackets', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=500&fit=crop', rating: 4.8, reviews: 45 },
   { id: 42, name: 'Sale Aura Dress', price: 129, category: 'Sale', subCategory: 'Dresses', image: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400&h=500&fit=crop', rating: 4.9, reviews: 33 },
   { id: 43, name: 'Sale Sneakers', price: 99, category: 'Sale', subCategory: 'Shoes', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop', rating: 4.6, reviews: 28 },
@@ -74,62 +59,56 @@ const allProducts = [
 ]
 
 // ============================================================
-// SUB-CATEGORY MAPPING - CLEAN VERSION
+// SUB-CATEGORY MAPPING - CLEAN WITH UNIQUE KEYS
 // ============================================================
-const subCategories: Record<string, string[]> = {
-  'Men': ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
-  'Women': ['Dresses', 'Tops', 'Traditional', 'Bottoms'],
-  'Kids': ['T-Shirts', 'Shoes', 'Dresses', 'Jackets', 'Pants'],
-  'Accessories': ['Shoes', 'Belts', 'Bags', 'Watches', 'Eyewear', 'Wallets', 'Scarves'],
-  'Unstitched': ['Fabrics'],
-  'Embroidered': ['Kurtas', 'Shawls', 'Dupattas'],
+const subCategories = {
+  Men: ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
+  Women: ['Dresses', 'Tops', 'Traditional', 'Bottoms'],
+  Kids: ['T-Shirts', 'Shoes', 'Dresses', 'Jackets', 'Pants'],
+  Accessories: ['Shoes', 'Belts', 'Bags', 'Watches', 'Eyewear', 'Wallets', 'Scarves'],
+  Unstitched: ['Fabrics'],
+  Embroidered: ['Kurtas', 'Shawls', 'Dupattas'],
   'New In': ['Dresses', 'Jackets', 'Shoes', 'Bags'],
-  'Sale': ['Jackets', 'Dresses', 'Shoes', 'Pants', 'Tops'],
+  Sale: ['Jackets', 'Dresses', 'Shoes', 'Pants', 'Tops'],
 }
 
 // ============================================================
-// HELPER FUNCTIONS FOR ICONS
+// CATEGORY ICONS
 // ============================================================
-function getCategoryIcon(category: string): string {
-  const icons: Record<string, string> = {
-    'All': '🛍️',
-    'Men': '👔',
-    'Women': '👗',
-    'Kids': '🧒',
-    'Accessories': '👜',
-    'Unstitched': '🧵',
-    'Embroidered': '🌸',
-    'New In': '✨',
-    'Sale': '🏷️'
-  }
-  return icons[category] || '📦'
+const categoryIcons = {
+  All: '🛍️',
+  Men: '👔',
+  Women: '👗',
+  Kids: '🧒',
+  Accessories: '👜',
+  Unstitched: '🧵',
+  Embroidered: '🌸',
+  'New In': '✨',
+  Sale: '🏷️',
 }
 
-function getSubCategoryIcon(sub: string): string {
-  const icons: Record<string, string> = {
-    'Jackets': '🧥',
-    'Pants': '👖',
-    'Shirts': '👔',
-    'Sweaters': '🧶',
-    'T-Shirts': '👕',
-    'Blazers': '🤵',
-    'Dresses': '👗',
-    'Tops': '👚',
-    'Traditional': '🧕',
-    'Bottoms': '👖',
-    'Shoes': '👟',
-    'Belts': '🔗',
-    'Bags': '👜',
-    'Watches': '⌚',
-    'Eyewear': '👓',
-    'Wallets': '💳',
-    'Scarves': '🧣',
-    'Fabrics': '🧵',
-    'Kurtas': '👘',
-    'Shawls': '🧣',
-    'Dupattas': '🧣'
-  }
-  return icons[sub] || '📦'
+const subCategoryIcons = {
+  Jackets: '🧥',
+  Pants: '👖',
+  Shirts: '👔',
+  Sweaters: '🧶',
+  'T-Shirts': '👕',
+  Blazers: '🤵',
+  Dresses: '👗',
+  Tops: '👚',
+  Traditional: '🧕',
+  Bottoms: '👖',
+  Shoes: '👟',
+  Belts: '🔗',
+  Bags: '👜',
+  Watches: '⌚',
+  Eyewear: '👓',
+  Wallets: '💳',
+  Scarves: '🧣',
+  Fabrics: '🧵',
+  Kurtas: '👘',
+  Shawls: '🧣',
+  Dupattas: '🧣',
 }
 
 // ============================================================
@@ -192,7 +171,7 @@ export default function Shop() {
 
   const getSubCategoriesList = () => {
     if (selectedCategory === 'All') return []
-    return subCategories[selectedCategory] || []
+    return subCategories[selectedCategory as keyof typeof subCategories] || []
   }
 
   const getProductCount = (category: string) => {
@@ -221,7 +200,6 @@ export default function Shop() {
         </h1>
         <p className="text-white/50 mb-8">Discover our latest arrivals and timeless classics</p>
 
-        {/* Search Bar */}
         <div className="relative mb-6">
           <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
           <input
@@ -233,7 +211,6 @@ export default function Shop() {
           />
         </div>
 
-        {/* Category Filters */}
         <div className="flex flex-wrap gap-2 sm:gap-3 mb-4">
           {categories.map((category) => (
             <button
@@ -245,7 +222,7 @@ export default function Shop() {
                   : 'bg-white/5 text-white/50 hover:bg-white/20 hover:text-white'
               }`}
             >
-              <span>{getCategoryIcon(category)}</span>
+              <span>{categoryIcons[category as keyof typeof categoryIcons]}</span>
               {category}
               <span className={`text-[10px] ${selectedCategory === category ? 'text-black/60' : 'text-white/30'}`}>
                 ({getProductCount(category)})
@@ -254,7 +231,6 @@ export default function Shop() {
           ))}
         </div>
 
-        {/* Sub-Category Filters */}
         {selectedCategory !== 'All' && getSubCategoriesList().length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
             <span className="text-white/40 text-xs uppercase tracking-wider mr-2 flex items-center">
@@ -284,7 +260,7 @@ export default function Shop() {
                     : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                <span>{getSubCategoryIcon(sub)}</span>
+                <span>{subCategoryIcons[sub as keyof typeof subCategoryIcons]}</span>
                 {sub}
                 <span className="text-[10px] text-white/30">
                   ({getSubCategoryCount(sub)})
@@ -294,14 +270,12 @@ export default function Shop() {
           </div>
         )}
 
-        {/* Results Count */}
         <p className="text-white/40 text-sm mb-6">
           {filteredProducts.length} products found
           {selectedCategory !== 'All' && ` in ${selectedCategory}`}
           {selectedSubCategory !== 'All' && ` / ${selectedSubCategory}`}
         </p>
 
-        {/* Product Grid */}
         {filteredProducts.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-white/50">No products found</p>
@@ -364,7 +338,6 @@ export default function Shop() {
         )}
       </section>
 
-      {/* Footer */}
       <footer className="border-t border-white/5 py-12 px-4 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white/50 text-sm">
           <div>
