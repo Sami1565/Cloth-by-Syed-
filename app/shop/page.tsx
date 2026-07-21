@@ -59,9 +59,9 @@ const allProducts = [
 ]
 
 // ============================================================
-// SUB-CATEGORY MAPPING - UNIQUE KEYS ONLY
+// SUB-CATEGORY MAPPING
 // ============================================================
-const subCategories = {
+const subCategories: Record<string, string[]> = {
   Men: ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
   Women: ['Dresses', 'Tops', 'Traditional', 'Bottoms'],
   Kids: ['T-Shirts', 'Shoes', 'Dresses', 'Jackets', 'Pants'],
@@ -75,7 +75,7 @@ const subCategories = {
 // ============================================================
 // CATEGORY ICONS
 // ============================================================
-const categoryIcons = {
+const categoryIcons: Record<string, string> = {
   All: '🛍️',
   Men: '👔',
   Women: '👗',
@@ -87,7 +87,7 @@ const categoryIcons = {
   Sale: '🏷️',
 }
 
-const subCategoryIcons = {
+const subCategoryIcons: Record<string, string> = {
   Jackets: '🧥',
   Pants: '👖',
   Shirts: '👔',
@@ -171,7 +171,7 @@ export default function Shop() {
 
   const getSubCategoriesList = () => {
     if (selectedCategory === 'All') return []
-    return subCategories[selectedCategory as keyof typeof subCategories] || []
+    return subCategories[selectedCategory] || []
   }
 
   const getProductCount = (category: string) => {
@@ -222,7 +222,7 @@ export default function Shop() {
                   : 'bg-white/5 text-white/50 hover:bg-white/20 hover:text-white'
               }`}
             >
-              <span>{categoryIcons[category as keyof typeof categoryIcons]}</span>
+              <span>{categoryIcons[category]}</span>
               {category}
               <span className={`text-[10px] ${selectedCategory === category ? 'text-black/60' : 'text-white/30'}`}>
                 ({getProductCount(category)})
@@ -260,7 +260,7 @@ export default function Shop() {
                     : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                <span>{subCategoryIcons[sub as keyof typeof subCategoryIcons]}</span>
+                <span>{subCategoryIcons[sub]}</span>
                 {sub}
                 <span className="text-[10px] text-white/30">
                   ({getSubCategoryCount(sub)})
