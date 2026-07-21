@@ -74,7 +74,7 @@ const allProducts = [
 ]
 
 // ============================================================
-// SUB-CATEGORY MAPPING - NO DUPLICATES
+// SUB-CATEGORY MAPPING - CLEAN VERSION
 // ============================================================
 const subCategories: Record<string, string[]> = {
   'Men': ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
