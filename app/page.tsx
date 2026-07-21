@@ -239,91 +239,10 @@ function QuickViewModal({ product, onClose }: QuickViewModalProps) {
 // ============================================================
 export default function Home() {
   const [quickViewProduct, setQuickViewProduct] = useState<any>(null)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [is3DViewerOpen, setIs3DViewerOpen] = useState(false)
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      {/* ===== HEADER ===== */}
-      <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-[#d4af37]">LUXE</h1>
-            <span className="text-[10px] tracking-[0.3em] text-white/40 uppercase hidden sm:inline">Studio</span>
-          </Link>
-          
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-8 text-sm font-light">
-            <Link href="/" className="hover:text-[#d4af37] transition">Home</Link>
-            <Link href="/shop" className="hover:text-[#d4af37] transition">Shop</Link>
-            <Link href="/collections" className="hover:text-[#d4af37] transition">Collections</Link>
-            <Link href="/about" className="hover:text-[#d4af37] transition">About</Link>
-            <Link href="/contact" className="hover:text-[#d4af37] transition">Contact</Link>
-          </nav>
-          
-          {/* Right Icons with Account Dropdown */}
-          <div className="flex items-center gap-4">
-            <FaSearch className="text-white/40 hover:text-[#d4af37] transition cursor-pointer" />
-            <FaHeart className="text-white/40 hover:text-red-400 transition cursor-pointer hidden sm:block" />
-            <div className="relative">
-              <FiShoppingCart className="text-white/40 hover:text-[#d4af37] transition cursor-pointer text-xl" />
-              <span className="absolute -top-1 -right-2 bg-[#d4af37] text-black text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
-                3
-              </span>
-            </div>
-            
-            {/* Account Dropdown */}
-            <div className="relative group">
-              <button className="px-4 py-1.5 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition flex items-center gap-2">
-                <FaUser className="text-sm" />
-                <span className="hidden sm:inline">Account</span>
-              </button>
-              <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-xl border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <Link href="/login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-[#d4af37] transition rounded-t-xl">
-                  Sign In
-                </Link>
-                <Link href="/signup" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-[#d4af37] transition">
-                  Create Account
-                </Link>
-                <Link href="/admin-login" className="block px-4 py-2 text-white/80 hover:bg-white/5 hover:text-[#d4af37] transition rounded-b-xl border-t border-white/10">
-                  Admin Panel
-                </Link>
-              </div>
-            </div>
-            
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden text-white/60 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <FaTimes /> : <FaBars />}
-            </button>
-          </div>
-        </div>
-        
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }} 
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden bg-black/95 backdrop-blur-md border-b border-white/10 py-4 px-4"
-          >
-            <div className="flex flex-col gap-4">
-              <Link href="/" className="hover:text-[#d4af37] transition">Home</Link>
-              <Link href="/shop" className="hover:text-[#d4af37] transition">Shop</Link>
-              <Link href="/collections" className="hover:text-[#d4af37] transition">Collections</Link>
-              <Link href="/about" className="hover:text-[#d4af37] transition">About</Link>
-              <Link href="/contact" className="hover:text-[#d4af37] transition">Contact</Link>
-              <div className="border-t border-white/10 pt-4">
-                <Link href="/login" className="block py-2 text-white/80 hover:text-[#d4af37] transition">Sign In</Link>
-                <Link href="/signup" className="block py-2 text-white/80 hover:text-[#d4af37] transition">Create Account</Link>
-                <Link href="/admin-login" className="block py-2 text-[#d4af37]/70 hover:text-[#d4af37] transition">Admin Panel</Link>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </header>
-
+    <>
       {/* ===== HERO SECTION ===== */}
       <Hero onOpen3D={() => setIs3DViewerOpen(true)} />
 
@@ -456,34 +375,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="border-t border-white/5 py-12 px-4 max-w-7xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white/50 text-sm">
-          <div>
-            <span className="text-white/90 font-bold text-lg block mb-2">LUXE</span> 
-            © 2026 — 3D fashion house.
-          </div>
-          <div>
-            <p className="text-white/80 font-medium">Shop</p>
-            <Link href="/shop" className="hover:text-white/80 cursor-pointer block">All Products</Link>
-            <Link href="/collections/men" className="hover:text-white/80 cursor-pointer block">Men</Link>
-            <Link href="/collections/women" className="hover:text-white/80 cursor-pointer block">Women</Link>
-          </div>
-          <div>
-            <p className="text-white/80 font-medium">Info</p>
-            <Link href="/about" className="hover:text-white/80 cursor-pointer block">About</Link>
-            <Link href="/contact" className="hover:text-white/80 cursor-pointer block">Contact</Link>
-            <Link href="/admin-login" className="hover:text-[#d4af37] cursor-pointer block text-[#d4af37]/50">Admin Panel</Link>
-          </div>
-          <div>
-            <p className="text-white/80 font-medium">Follow</p>
-            <p className="hover:text-white/80 cursor-pointer">Instagram</p>
-            <p className="hover:text-white/80 cursor-pointer">Twitter</p>
-            <p className="hover:text-white/80 cursor-pointer">YouTube</p>
-          </div>
-        </div>
-      </footer>
-
       {/* ===== QUICK VIEW MODAL ===== */}
       {quickViewProduct && (
         <QuickViewModal 
@@ -491,6 +382,6 @@ export default function Home() {
           onClose={() => setQuickViewProduct(null)} 
         />
       )}
-    </main>
+    </>
   )
 }
