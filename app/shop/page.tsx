@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { FaSearch, FaStar } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
 import { IoHeartOutline } from 'react-icons/io5'
@@ -82,9 +83,36 @@ const subCategories: { [key: string]: string[] } = {
 }
 
 export default function Shop() {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [selectedSubCategory, setSelectedSubCategory] = useState('All')
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  
+  // Get category and subCategory from URL
+  const categoryFromUrl = searchParams.get('category') || 'All'
+  const subCategoryFromUrl = searchParams.get('subCategory') || 'All'
+  
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl)
+  const [selectedSubCategory, setSelectedSubCategory] = useState(subCategoryFromUrl)
   const [searchTerm, setSearchTerm] = useState('')
+
+  // Update URL when category changes
+  const updateCategory = (category: string, subCategory: string = 'All') => {
+    setSelectedCategory(category)
+    setSelectedSubCategory(subCategory)
+    
+    const params = new URLSearchParams()
+    if (category !== 'All') params.set('category', category)
+    if (subCategory !== 'All') params.set('subCategory', subCategory)
+    
+    router.push(`/shop${params.toString() ? '?' + params.toString() : ''}`)
+  }
+
+  // Sync state with URL on back/forward navigation
+  useEffect(() => {
+    const category = searchParams.get('category') || 'All'
+    const subCategory = searchParams.get('subCategory') || 'All'
+    setSelectedCategory(category)
+    setSelectedSubCategory(subCategory)
+  }, [searchParams])
 
   const filteredProducts = allProducts.filter(product => {
     const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory
@@ -196,15 +224,11 @@ export default function Shop() {
           />
         </div>
 
-        {/* All Categories */}
         <div className="flex flex-wrap gap-2 sm:gap-3 mb-4">
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => {
-                setSelectedCategory(category)
-                setSelectedSubCategory('All')
-              }}
+              onClick={() => updateCategory(category, 'All')}
               className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm transition flex items-center gap-1 sm:gap-1.5 ${
                 selectedCategory === category
                   ? 'bg-[#d4af37] text-black font-medium'
@@ -220,14 +244,13 @@ export default function Shop() {
           ))}
         </div>
 
-        {/* Sub-Categories */}
         {selectedCategory !== 'All' && getSubCategories().length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
             <span className="text-white/40 text-xs uppercase tracking-wider mr-2 flex items-center">
               Sub-Categories:
             </span>
             <button
-              onClick={() => setSelectedSubCategory('All')}
+              onClick={() => updateCategory(selectedCategory, 'All')}
               className={`px-3 py-1.5 rounded-full text-xs transition flex items-center gap-1 ${
                 selectedSubCategory === 'All'
                   ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
@@ -243,7 +266,7 @@ export default function Shop() {
             {getSubCategories().map((sub) => (
               <button
                 key={sub}
-                onClick={() => setSelectedSubCategory(sub)}
+                onClick={() => updateCategory(selectedCategory, sub)}
                 className={`px-3 py-1.5 rounded-full text-xs transition flex items-center gap-1 ${
                   selectedSubCategory === sub
                     ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
@@ -274,7 +297,11 @@ export default function Shop() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
             {filteredProducts.map((product) => (
-              <Link href={`/product/${product.id}`} key={product.id} className="block">
+              <Link 
+                href={`/shop?category=${encodeURIComponent(product.category)}&subCategory=${encodeURIComponent(product.subCategory)}`} 
+                key={product.id} 
+                className="block"
+              >
                 <div className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all duration-500 cursor-pointer">
                   <div className="relative aspect-[3/4] overflow-hidden">
                     <img 
@@ -282,15 +309,11 @@ export default function Shop() {
                       alt={product.name} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
                     />
-                    <button 
-                      onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                      }}
-                      className="absolute top-3 right-3 p-2 rounded-full bg-black/70 backdrop-blur text-white/70 hover:text-red-400 transition z-10"
-                    >
-                      <IoHeartOutline />
-                    </button>
+                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                      <p className="text-white/60 text-[10px] uppercase tracking-wider">
+                        {product.category} / {product.subCategory}
+                      </p>
+                    </div>
                     {product.category === 'Sale' && (
                       <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-red-500/80 text-white text-xs font-medium">
                         SALE
@@ -301,9 +324,6 @@ export default function Shop() {
                         NEW
                       </span>
                     )}
-                    <span className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur text-white/60 text-[10px]">
-                      {product.subCategory}
-                    </span>
                   </div>
                   <div className="p-4 sm:p-5">
                     <div className="flex justify-between items-start">
@@ -324,7 +344,7 @@ export default function Shop() {
                       }}
                       className="mt-4 w-full py-2 sm:py-2.5 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition border border-white/20 text-xs sm:text-sm"
                     >
-                      Add to Bag
+                      View Collection
                     </button>
                   </div>
                 </div>
