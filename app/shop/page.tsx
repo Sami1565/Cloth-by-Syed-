@@ -59,7 +59,7 @@ const allProducts = [
 ]
 
 // ============================================================
-// SUB-CATEGORY MAPPING - CLEAN WITH UNIQUE KEYS
+// SUB-CATEGORY MAPPING - UNIQUE KEYS ONLY
 // ============================================================
 const subCategories = {
   Men: ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
@@ -68,7 +68,7 @@ const subCategories = {
   Accessories: ['Shoes', 'Belts', 'Bags', 'Watches', 'Eyewear', 'Wallets', 'Scarves'],
   Unstitched: ['Fabrics'],
   Embroidered: ['Kurtas', 'Shawls', 'Dupattas'],
-  'New In': ['Dresses', 'Jackets', 'Shoes', 'Bags'],
+  NewIn: ['Dresses', 'Jackets', 'Shoes', 'Bags'],
   Sale: ['Jackets', 'Dresses', 'Shoes', 'Pants', 'Tops'],
 }
 
@@ -83,7 +83,7 @@ const categoryIcons = {
   Accessories: '👜',
   Unstitched: '🧵',
   Embroidered: '🌸',
-  'New In': '✨',
+  NewIn: '✨',
   Sale: '🏷️',
 }
 
@@ -167,7 +167,7 @@ export default function Shop() {
     }, 1500)
   }
 
-  const categories = ['All', 'Men', 'Women', 'Kids', 'Accessories', 'Unstitched', 'Embroidered', 'New In', 'Sale']
+  const categories = ['All', 'Men', 'Women', 'Kids', 'Accessories', 'Unstitched', 'Embroidered', 'NewIn', 'Sale']
 
   const getSubCategoriesList = () => {
     if (selectedCategory === 'All') return []
