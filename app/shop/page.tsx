@@ -59,9 +59,9 @@ const allProducts = [
 ]
 
 // ============================================================
-// SIMPLE SUB-CATEGORY DATA (NO DUPLICATE KEYS)
+// SUB-CATEGORY DATA
 // ============================================================
-const subCategoryData: any = {
+const subData = {
   Men: ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
   Women: ['Dresses', 'Tops', 'Traditional', 'Bottoms'],
   Kids: ['T-Shirts', 'Shoes', 'Dresses', 'Jackets', 'Pants'],
@@ -73,9 +73,9 @@ const subCategoryData: any = {
 }
 
 // ============================================================
-// SIMPLE ICON DATA (NO DUPLICATE KEYS)
+// ICON DATA
 // ============================================================
-const iconData: any = {
+const catIcons = {
   All: '🛍️',
   Men: '👔',
   Women: '👗',
@@ -87,7 +87,7 @@ const iconData: any = {
   Sale: '🏷️',
 }
 
-const subIconData: any = {
+const subIcons = {
   Jackets: '🧥',
   Pants: '👖',
   Shirts: '👔',
@@ -112,14 +112,14 @@ const subIconData: any = {
 }
 
 // ============================================================
-// GET FUNCTIONS
+// HELPER FUNCTIONS
 // ============================================================
-function getCategoryIcon(category: string): string {
-  return iconData[category] || '📦'
+function getIcon(category: string): string {
+  return catIcons[category as keyof typeof catIcons] || '📦'
 }
 
-function getSubCategoryIcon(sub: string): string {
-  return subIconData[sub] || '📦'
+function getSubIcon(sub: string): string {
+  return subIcons[sub as keyof typeof subIcons] || '📦'
 }
 
 // ============================================================
@@ -182,7 +182,7 @@ export default function Shop() {
 
   const getSubCategoriesList = () => {
     if (selectedCategory === 'All') return []
-    return subCategoryData[selectedCategory] || []
+    return subData[selectedCategory as keyof typeof subData] || []
   }
 
   const getProductCount = (category: string) => {
@@ -233,7 +233,7 @@ export default function Shop() {
                   : 'bg-white/5 text-white/50 hover:bg-white/20 hover:text-white'
               }`}
             >
-              <span>{getCategoryIcon(category)}</span>
+              <span>{getIcon(category)}</span>
               {category}
               <span className={`text-[10px] ${selectedCategory === category ? 'text-black/60' : 'text-white/30'}`}>
                 ({getProductCount(category)})
@@ -271,7 +271,7 @@ export default function Shop() {
                     : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                <span>{getSubCategoryIcon(sub)}</span>
+                <span>{getSubIcon(sub)}</span>
                 {sub}
                 <span className="text-[10px] text-white/30">
                   ({getSubCategoryCount(sub)})
