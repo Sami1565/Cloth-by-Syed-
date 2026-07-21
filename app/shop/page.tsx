@@ -88,7 +88,7 @@ const subCategories: { [key: string]: string[] } = {
 }
 
 // ============================================================
-// ICON MAPPINGS
+// ICON MAPPINGS - FIXED
 // ============================================================
 const categoryIcons: { [key: string]: string } = {
   'All': '🛍️',
@@ -239,7 +239,7 @@ export default function Shop() {
                   : 'bg-white/5 text-white/50 hover:bg-white/20 hover:text-white'
               }`}
             >
-              <span>{categoryIcons[category] || '📦'}</span>
+              <span>{categoryIcons[category]}</span>
               {category}
               <span className={`text-[10px] ${selectedCategory === category ? 'text-black/60' : 'text-white/30'}`}>
                 ({getProductCount(category)})
@@ -278,7 +278,7 @@ export default function Shop() {
                     : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                <span>{subCategoryIcons[sub] || '📦'}</span>
+                <span>{subCategoryIcons[sub]}</span>
                 {sub}
                 <span className="text-[10px] text-white/30">
                   ({getSubCategoryCount(sub)})
