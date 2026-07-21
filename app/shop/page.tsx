@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { FaSearch, FaStar } from 'react-icons/fa'
+import { FaSearch, FaStar, FaShoppingBag } from 'react-icons/fa'
 import { IoHeartOutline } from 'react-icons/io5'
 import { useCartStore } from '@/store/cartStore'
 
