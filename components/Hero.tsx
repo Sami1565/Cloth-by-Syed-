@@ -10,7 +10,7 @@ export default function Hero({ onOpen3D }: { onOpen3D: () => void }) {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1600&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay" />
       </div>
 
-      {/* Content Container - Centered with proper spacing */}
+      {/* Content Container */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           {/* Logo */}
