@@ -88,7 +88,7 @@ const subCategories: { [key: string]: string[] } = {
 }
 
 // ============================================================
-// CATEGORY ICONS
+// ICON MAPPINGS
 // ============================================================
 const categoryIcons: { [key: string]: string } = {
   'All': '🛍️',
