@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { FaStar, FaArrowLeft } from 'react-icons/fa'
-import { FiShoppingCart } from 'react-icons/fi'
 import { IoHeartOutline, IoHeart } from 'react-icons/io5'
 import { motion } from 'framer-motion'
 
@@ -122,18 +121,7 @@ const allProducts = [
   },
 ]
 
-// Category display names
-const categoryNames: { [key: string]: string } = {
-  'new-in': 'New In',
-  'women': 'Women',
-  'men': 'Men',
-  'girls': 'Girls',
-  'sale': 'Sale',
-  'unstitched': 'Unstitched',
-  'embroidered': 'Embroidered'
-}
-
-// Map category slugs to actual categories
+// Category mapping
 const categoryMap: { [key: string]: string } = {
   'new-in': 'New In',
   'women': 'Women',
@@ -146,7 +134,8 @@ const categoryMap: { [key: string]: string } = {
 
 export default function CategoryPage() {
   const params = useParams()
-  const slug = params.slug as string
+  const slug = params?.slug as string || ''
+  
   const [isWishlist, setIsWishlist] = useState<{ [key: number]: boolean }>({})
 
   // Get category name from slug
@@ -154,11 +143,7 @@ export default function CategoryPage() {
   
   // Filter products by category
   const categoryProducts = allProducts.filter(product => 
-    product.category.toLowerCase() === categoryName.toLowerCase() ||
-    (slug === 'new-in' && product.id <= 3) ||
-    (slug === 'sale' && product.id % 2 === 0) ||
-    (slug === 'unstitched' && product.id > 7) ||
-    (slug === 'embroidered' && product.id > 5)
+    product.category.toLowerCase() === categoryName.toLowerCase()
   )
 
   const toggleWishlist = (id: number) => {
