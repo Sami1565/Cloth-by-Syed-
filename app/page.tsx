@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { 
   FaShoppingBag, 
@@ -103,7 +104,7 @@ const categories = [
 ]
 
 // ============================================================
-// PRODUCT CARD COMPONENT WITH ADD TO BAG
+// PRODUCT CARD COMPONENT WITH NAVIGATION
 // ============================================================
 interface ProductCardProps {
   product: {
@@ -124,6 +125,7 @@ function ProductCard({ product, onQuickView }: ProductCardProps) {
   const [isWishlist, setIsWishlist] = useState(false)
   const { addItem } = useCartStore()
   const [isAdded, setIsAdded] = useState(false)
+  const router = useRouter()
 
   const handleAddToBag = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -141,10 +143,16 @@ function ProductCard({ product, onQuickView }: ProductCardProps) {
     setTimeout(() => setIsAdded(false), 1500)
   }
 
+  const handleCardClick = () => {
+    // Navigate to shop page with category filter
+    router.push(`/shop?category=${encodeURIComponent(product.category)}`)
+  }
+
   return (
     <motion.div 
       whileHover={{ y: -8 }} 
-      className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all duration-500"
+      onClick={handleCardClick}
+      className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all duration-500 cursor-pointer"
     >
       <div className="relative aspect-[3/4] overflow-hidden">
         <img 
@@ -162,11 +170,18 @@ function ProductCard({ product, onQuickView }: ProductCardProps) {
           {isWishlist ? <IoHeart className="text-red-400" /> : <IoHeartOutline />}
         </button>
         <button 
-          onClick={() => onQuickView(product)} 
+          onClick={(e) => {
+            e.stopPropagation()
+            onQuickView(product)
+          }} 
           className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-black/70 backdrop-blur text-white/90 text-sm opacity-0 group-hover:opacity-100 transition-opacity border border-white/10"
         >
           Quick View
         </button>
+        {/* Category Badge on Product */}
+        <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur text-white/60 text-[10px] uppercase tracking-wider">
+          {product.category}
+        </div>
       </div>
       <div className="p-5">
         <div className="flex justify-between items-start">
@@ -217,6 +232,7 @@ function QuickViewModal({ product, onClose }: QuickViewModalProps) {
   const { addItem } = useCartStore()
   const [selectedSize, setSelectedSize] = useState('')
   const [quantity, setQuantity] = useState(1)
+  const router = useRouter()
 
   if (!product) return null
 
@@ -230,6 +246,11 @@ function QuickViewModal({ product, onClose }: QuickViewModalProps) {
       image: product.image,
     })
     onClose()
+  }
+
+  const handleViewAll = () => {
+    onClose()
+    router.push(`/shop?category=${encodeURIComponent(product.category)}`)
   }
 
   return (
@@ -307,6 +328,13 @@ function QuickViewModal({ product, onClose }: QuickViewModalProps) {
               className="mt-6 w-full py-3 rounded-full bg-[#d4af37] text-black font-semibold hover:bg-[#c5a028] transition"
             >
               Add to Cart — ${(product.price * quantity).toFixed(2)}
+            </button>
+
+            <button 
+              onClick={handleViewAll}
+              className="mt-3 w-full py-2 rounded-full border border-white/20 text-white/60 hover:bg-white/5 transition text-sm"
+            >
+              View All {product.category} Collection →
             </button>
           </div>
         </div>
