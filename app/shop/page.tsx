@@ -59,9 +59,9 @@ const allProducts = [
 ]
 
 // ============================================================
-// SUB-CATEGORY DATA - CLEAN VERSION
+// SUB-CATEGORY DATA
 // ============================================================
-const subData = {
+const subData: Record<string, string[]> = {
   Men: ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
   Women: ['Dresses', 'Tops', 'Traditional', 'Bottoms'],
   Kids: ['T-Shirts', 'Shoes', 'Dresses', 'Jackets', 'Pants'],
@@ -73,9 +73,9 @@ const subData = {
 }
 
 // ============================================================
-// ICON DATA - CLEAN VERSION
+// ICON DATA
 // ============================================================
-const catIcons = {
+const catIcons: Record<string, string> = {
   All: '🛍️',
   Men: '👔',
   Women: '👗',
@@ -87,7 +87,7 @@ const catIcons = {
   Sale: '🏷️',
 }
 
-const subIcons = {
+const subIcons: Record<string, string> = {
   Jackets: '🧥',
   Pants: '👖',
   Shirts: '👔',
@@ -112,14 +112,14 @@ const subIcons = {
 }
 
 // ============================================================
-// HELPER FUNCTIONS
+// HELPER FUNCTIONS - FIXED with type casting
 // ============================================================
 function getIcon(category: string): string {
-  return catIcons[category] || '📦'
+  return catIcons[category as keyof typeof catIcons] || '📦'
 }
 
 function getSubIcon(sub: string): string {
-  return subIcons[sub] || '📦'
+  return subIcons[sub as keyof typeof subIcons] || '📦'
 }
 
 // ============================================================
@@ -182,7 +182,7 @@ export default function Shop() {
 
   const getSubCategoriesList = () => {
     if (selectedCategory === 'All') return []
-    return subData[selectedCategory] || []
+    return subData[selectedCategory as keyof typeof subData] || []
   }
 
   const getProductCount = (category: string) => {
