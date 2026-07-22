@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
 import { IoHeartOutline, IoHeart } from 'react-icons/io5'
+import { useCartStore } from '@/store/cartStore'
 import ThreeViewer from '@/components/ThreeViewer'
 import Hero from '@/components/Hero'
 
@@ -102,7 +103,7 @@ const categories = [
 ]
 
 // ============================================================
-// PRODUCT CARD COMPONENT
+// PRODUCT CARD COMPONENT WITH ADD TO BAG
 // ============================================================
 interface ProductCardProps {
   product: {
@@ -121,6 +122,24 @@ interface ProductCardProps {
 
 function ProductCard({ product, onQuickView }: ProductCardProps) {
   const [isWishlist, setIsWishlist] = useState(false)
+  const { addItem } = useCartStore()
+  const [isAdded, setIsAdded] = useState(false)
+
+  const handleAddToBag = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      subCategory: product.category,
+      image: product.image,
+    })
+
+    setIsAdded(true)
+    setTimeout(() => setIsAdded(false), 1500)
+  }
 
   return (
     <motion.div 
@@ -134,7 +153,10 @@ function ProductCard({ product, onQuickView }: ProductCardProps) {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
         />
         <button 
-          onClick={() => setIsWishlist(!isWishlist)} 
+          onClick={(e) => {
+            e.stopPropagation()
+            setIsWishlist(!isWishlist)
+          }} 
           className="absolute top-3 right-3 p-2 rounded-full bg-black/70 backdrop-blur text-white/70 hover:text-red-400 transition"
         >
           {isWishlist ? <IoHeart className="text-red-400" /> : <IoHeartOutline />}
@@ -158,8 +180,15 @@ function ProductCard({ product, onQuickView }: ProductCardProps) {
           <FaStar /> <span className="text-white/80 text-xs">{product.rating}</span>
           <span className="text-white/30 text-xs ml-2">({product.reviews})</span>
         </div>
-        <button className="mt-4 w-full py-2.5 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition border border-white/20 text-sm">
-          Add to Bag
+        <button 
+          onClick={handleAddToBag}
+          className={`mt-4 w-full py-2.5 rounded-full transition text-sm font-medium ${
+            isAdded 
+              ? 'bg-[#d4af37] text-black' 
+              : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+          }`}
+        >
+          {isAdded ? '✓ Added!' : 'Add to Bag'}
         </button>
       </div>
     </motion.div>
@@ -185,7 +214,23 @@ interface QuickViewModalProps {
 }
 
 function QuickViewModal({ product, onClose }: QuickViewModalProps) {
+  const { addItem } = useCartStore()
+  const [selectedSize, setSelectedSize] = useState('')
+  const [quantity, setQuantity] = useState(1)
+
   if (!product) return null
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      subCategory: product.category,
+      image: product.image,
+    })
+    onClose()
+  }
 
   return (
     <motion.div 
@@ -214,18 +259,54 @@ function QuickViewModal({ product, onClose }: QuickViewModalProps) {
           <div>
             <p className="text-[#d4af37] text-3xl font-bold">${product.price}</p>
             <p className="text-white/60 mt-2">Category: {product.category}</p>
-            <div className="flex gap-2 mt-4 flex-wrap">
-              {product.sizes.map((size: string) => (
-                <span key={size} className="px-3 py-1 rounded-full bg-white/10 text-white/80 text-sm border border-white/10">
-                  {size}
-                </span>
-              ))}
+            
+            <div className="mt-4">
+              <p className="text-white/60 text-sm mb-2">Select Size</p>
+              <div className="flex gap-2 flex-wrap">
+                {product.sizes.map((size: string) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`px-4 py-2 rounded-full text-sm transition ${
+                      selectedSize === size
+                        ? 'bg-[#d4af37] text-black font-medium'
+                        : 'bg-white/10 text-white/80 hover:bg-white/20 border border-white/10'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
             </div>
+
             <div className="mt-4">
               <p className="text-white/60 text-sm">Color: {product.color}</p>
             </div>
-            <button className="mt-6 w-full py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition">
-              Add to Cart
+
+            <div className="mt-4">
+              <p className="text-white/60 text-sm mb-2">Quantity</p>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/70 transition"
+                >
+                  -
+                </button>
+                <span className="text-white text-lg w-8 text-center">{quantity}</span>
+                <button 
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/70 transition"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <button 
+              onClick={handleAddToCart}
+              className="mt-6 w-full py-3 rounded-full bg-[#d4af37] text-black font-semibold hover:bg-[#c5a028] transition"
+            >
+              Add to Cart — ${(product.price * quantity).toFixed(2)}
             </button>
           </div>
         </div>
