@@ -59,7 +59,7 @@ const allProducts = [
 ]
 
 // ============================================================
-// SUB-CATEGORY DATA
+// SUB-CATEGORY DATA - CLEAN VERSION
 // ============================================================
 const subData = {
   Men: ['Jackets', 'Pants', 'Shirts', 'Sweaters', 'T-Shirts', 'Blazers'],
@@ -73,7 +73,7 @@ const subData = {
 }
 
 // ============================================================
-// ICON DATA
+// ICON DATA - CLEAN VERSION
 // ============================================================
 const catIcons = {
   All: '🛍️',
@@ -115,11 +115,11 @@ const subIcons = {
 // HELPER FUNCTIONS
 // ============================================================
 function getIcon(category: string): string {
-  return catIcons[category as keyof typeof catIcons] || '📦'
+  return catIcons[category] || '📦'
 }
 
 function getSubIcon(sub: string): string {
-  return subIcons[sub as keyof typeof subIcons] || '📦'
+  return subIcons[sub] || '📦'
 }
 
 // ============================================================
@@ -182,7 +182,7 @@ export default function Shop() {
 
   const getSubCategoriesList = () => {
     if (selectedCategory === 'All') return []
-    return subData[selectedCategory as keyof typeof subData] || []
+    return subData[selectedCategory] || []
   }
 
   const getProductCount = (category: string) => {
