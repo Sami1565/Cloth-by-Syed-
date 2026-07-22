@@ -2,12 +2,25 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { FaSearch, FaHeart, FaUser, FaTimes, FaBars } from 'react-icons/fa'
 import { FiShoppingCart } from 'react-icons/fi'
 import CartIcon from './CartIcon'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const router = useRouter()
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`)
+      setIsSearchOpen(false)
+      setSearchQuery('')
+    }
+  }
 
   return (
     <>
@@ -30,7 +43,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           
           {/* Right Icons */}
           <div className="flex items-center gap-4">
-            <FaSearch className="text-white/40 hover:text-[#d4af37] transition cursor-pointer" />
+            {/* Search Button */}
+            <button 
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="text-white/40 hover:text-[#d4af37] transition cursor-pointer"
+              aria-label="Search"
+            >
+              <FaSearch />
+            </button>
+            
             <FaHeart className="text-white/40 hover:text-red-400 transition cursor-pointer hidden sm:block" />
             
             {/* Persistent Cart Icon */}
@@ -64,6 +85,38 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         </div>
+        
+        {/* Search Bar Dropdown */}
+        {isSearchOpen && (
+          <div className="border-t border-white/10 bg-black/95 backdrop-blur-md py-4 px-4">
+            <form onSubmit={handleSearch} className="max-w-2xl mx-auto relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for products, categories, or brands..."
+                className="w-full bg-white/5 border border-white/10 rounded-full px-6 py-3 pl-12 text-white placeholder-white/40 focus:border-[#d4af37]/50 outline-none transition"
+                autoFocus
+              />
+              <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-1.5 rounded-full bg-[#d4af37] text-black font-medium hover:bg-[#c5a028] transition text-sm"
+              >
+                Search
+              </button>
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-24 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition"
+                >
+                  <FaTimes />
+                </button>
+              )}
+            </form>
+          </div>
+        )}
         
         {/* Mobile Menu */}
         {isMenuOpen && (
