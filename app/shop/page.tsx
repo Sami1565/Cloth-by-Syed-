@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { FaSearch, FaStar } from 'react-icons/fa'
+import { FaSearch, FaStar, FaTimes } from 'react-icons/fa'
 import { IoHeartOutline } from 'react-icons/io5'
 import { useCartStore } from '@/store/cartStore'
 
@@ -112,7 +112,7 @@ const subIcons: Record<string, string> = {
 }
 
 // ============================================================
-// HELPER FUNCTIONS - FIXED with type casting
+// HELPER FUNCTIONS
 // ============================================================
 function getIcon(category: string): string {
   return catIcons[category as keyof typeof catIcons] || '📦'
@@ -132,10 +132,11 @@ export default function Shop() {
 
   const categoryFromUrl = searchParams.get('category') || 'All'
   const subCategoryFromUrl = searchParams.get('subCategory') || 'All'
+  const searchFromUrl = searchParams.get('search') || ''
 
   const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl)
   const [selectedSubCategory, setSelectedSubCategory] = useState(subCategoryFromUrl)
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState(searchFromUrl)
 
   const updateCategory = (category: string, subCategory: string = 'All') => {
     setSelectedCategory(category)
@@ -144,6 +145,7 @@ export default function Shop() {
     const params = new URLSearchParams()
     if (category !== 'All') params.set('category', category)
     if (subCategory !== 'All') params.set('subCategory', subCategory)
+    if (searchTerm) params.set('search', searchTerm)
 
     router.push(`/shop${params.toString() ? '?' + params.toString() : ''}`)
   }
@@ -151,8 +153,10 @@ export default function Shop() {
   useEffect(() => {
     const category = searchParams.get('category') || 'All'
     const subCategory = searchParams.get('subCategory') || 'All'
+    const search = searchParams.get('search') || ''
     setSelectedCategory(category)
     setSelectedSubCategory(subCategory)
+    setSearchTerm(search)
   }, [searchParams])
 
   const handleAddToBag = (e: React.MouseEvent, product: any) => {
@@ -176,6 +180,23 @@ export default function Shop() {
       btn.textContent = originalText
       btn.classList.remove('bg-[#d4af37]', 'text-black')
     }, 1500)
+  }
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    const params = new URLSearchParams()
+    if (selectedCategory !== 'All') params.set('category', selectedCategory)
+    if (selectedSubCategory !== 'All') params.set('subCategory', selectedSubCategory)
+    if (searchTerm.trim()) params.set('search', searchTerm.trim())
+    router.push(`/shop${params.toString() ? '?' + params.toString() : ''}`)
+  }
+
+  const clearSearch = () => {
+    setSearchTerm('')
+    const params = new URLSearchParams()
+    if (selectedCategory !== 'All') params.set('category', selectedCategory)
+    if (selectedSubCategory !== 'All') params.set('subCategory', selectedSubCategory)
+    router.push(`/shop${params.toString() ? '?' + params.toString() : ''}`)
   }
 
   const categories = ['All', 'Men', 'Women', 'Kids', 'Accessories', 'Unstitched', 'Embroidered', 'NewIn', 'Sale']
@@ -211,16 +232,41 @@ export default function Shop() {
         </h1>
         <p className="text-white/50 mb-8">Discover our latest arrivals and timeless classics</p>
 
-        <div className="relative mb-6">
-          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-12 py-3 text-white placeholder-white/30 focus:border-[#d4af37]/50 outline-none transition"
-          />
-        </div>
+        <form onSubmit={handleSearch} className="relative mb-6">
+          <div className="flex items-center bg-white/5 border border-white/10 rounded-xl overflow-hidden focus-within:border-[#d4af37]/50 transition">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-1 bg-transparent px-4 py-3 text-white placeholder-white/30 outline-none"
+            />
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={clearSearch}
+                className="text-white/30 hover:text-white/60 px-2 transition"
+              >
+                <FaTimes />
+              </button>
+            )}
+            <button
+              type="submit"
+              className="px-6 py-3 bg-[#d4af37] text-black font-medium hover:bg-[#c5a028] transition flex items-center gap-2"
+            >
+              <FaSearch />
+              <span className="hidden sm:inline">Search</span>
+            </button>
+          </div>
+        </form>
+
+        {searchTerm && (
+          <div className="mb-4 text-sm text-white/40">
+            Showing results for: <span className="text-white/70">"{searchTerm}"</span>
+            <span className="mx-2">•</span>
+            {filteredProducts.length} products found
+          </div>
+        )}
 
         <div className="flex flex-wrap gap-2 sm:gap-3 mb-4">
           {categories.map((category) => (
