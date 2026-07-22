@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { FaSearch, FaStar, FaTimes } from 'react-icons/fa'
+import { FaSearch, FaStar, FaTimes, FaFilter, FaThList, FaTh } from 'react-icons/fa'
 import { IoHeartOutline } from 'react-icons/io5'
 import { useCartStore } from '@/store/cartStore'
 
@@ -123,7 +123,7 @@ function getSubIcon(sub: string): string {
 }
 
 // ============================================================
-// MAIN SHOP COMPONENT
+// MAIN SHOP COMPONENT WITH SIDEBAR
 // ============================================================
 export default function Shop() {
   const searchParams = useSearchParams()
@@ -137,6 +137,8 @@ export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl)
   const [selectedSubCategory, setSelectedSubCategory] = useState(subCategoryFromUrl)
   const [searchTerm, setSearchTerm] = useState(searchFromUrl)
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const updateCategory = (category: string, subCategory: string = 'All') => {
     setSelectedCategory(category)
@@ -226,174 +228,266 @@ export default function Shop() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <section className="pt-8 pb-20 px-4 max-w-7xl mx-auto">
-        <h1 className="text-4xl font-light tracking-widest mb-4">
-          SHOP <span className="text-[#d4af37]">COLLECTION</span>
-        </h1>
-        <p className="text-white/50 mb-8">Discover our latest arrivals and timeless classics</p>
-
-        <form onSubmit={handleSearch} className="relative mb-6">
-          <div className="flex items-center bg-white/5 border border-white/10 rounded-xl overflow-hidden focus-within:border-[#d4af37]/50 transition">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1 bg-transparent px-4 py-3 text-white placeholder-white/30 outline-none"
-            />
-            {searchTerm && (
+      <div className="pt-8 pb-20 px-4 max-w-7xl mx-auto">
+        {/* Header with Mobile Filter Toggle */}
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-4xl font-light tracking-widest">
+              SHOP <span className="text-[#d4af37]">COLLECTION</span>
+            </h1>
+            <p className="text-white/50 text-sm mt-1">Discover our latest arrivals and timeless classics</p>
+          </div>
+          <div className="flex items-center gap-3">
+            {/* View Toggle */}
+            <div className="hidden sm:flex bg-white/5 rounded-xl border border-white/10 p-1">
               <button
-                type="button"
-                onClick={clearSearch}
-                className="text-white/30 hover:text-white/60 px-2 transition"
+                onClick={() => setViewMode('grid')}
+                className={`p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-[#d4af37] text-black' : 'text-white/40 hover:text-white'}`}
+              >
+                <FaTh />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-[#d4af37] text-black' : 'text-white/40 hover:text-white'}`}
+              >
+                <FaThList />
+              </button>
+            </div>
+            {/* Mobile Filter Button */}
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="lg:hidden flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 transition"
+            >
+              <FaFilter />
+              <span className="text-sm">Filters</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="flex gap-8">
+          {/* ===== SIDEBAR ===== */}
+          <aside className={`
+            lg:block w-72 flex-shrink-0
+            ${isSidebarOpen ? 'fixed inset-0 z-50 bg-black/95 backdrop-blur-md p-6 overflow-y-auto lg:relative lg:bg-transparent lg:p-0' : 'hidden lg:block'}
+          `}>
+            {/* Close button for mobile */}
+            {isSidebarOpen && (
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="lg:hidden absolute top-4 right-4 text-white/50 hover:text-white text-2xl"
               >
                 <FaTimes />
               </button>
             )}
-            <button
-              type="submit"
-              className="px-6 py-3 bg-[#d4af37] text-black font-medium hover:bg-[#c5a028] transition flex items-center gap-2"
-            >
-              <FaSearch />
-              <span className="hidden sm:inline">Search</span>
-            </button>
-          </div>
-        </form>
 
-        {searchTerm && (
-          <div className="mb-4 text-sm text-white/40">
-            Showing results for: <span className="text-white/70">"{searchTerm}"</span>
-            <span className="mx-2">•</span>
-            {filteredProducts.length} products found
-          </div>
-        )}
-
-        <div className="flex flex-wrap gap-2 sm:gap-3 mb-4">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => updateCategory(category, 'All')}
-              className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm transition flex items-center gap-1 sm:gap-1.5 ${
-                selectedCategory === category
-                  ? 'bg-[#d4af37] text-black font-medium'
-                  : 'bg-white/5 text-white/50 hover:bg-white/20 hover:text-white'
-              }`}
-            >
-              <span>{getIcon(category)}</span>
-              {category}
-              <span className={`text-[10px] ${selectedCategory === category ? 'text-black/60' : 'text-white/30'}`}>
-                ({getProductCount(category)})
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {selectedCategory !== 'All' && getSubCategoriesList().length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
-            <span className="text-white/40 text-xs uppercase tracking-wider mr-2 flex items-center">
-              Sub-Categories:
-            </span>
-            <button
-              onClick={() => updateCategory(selectedCategory, 'All')}
-              className={`px-3 py-1.5 rounded-full text-xs transition flex items-center gap-1 ${
-                selectedSubCategory === 'All'
-                  ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
-                  : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <span>📋</span>
-              All
-              <span className="text-[10px] text-white/30">
-                ({getSubCategoryCount('All')})
-              </span>
-            </button>
-            {getSubCategoriesList().map((sub) => (
-              <button
-                key={sub}
-                onClick={() => updateCategory(selectedCategory, sub)}
-                className={`px-3 py-1.5 rounded-full text-xs transition flex items-center gap-1 ${
-                  selectedSubCategory === sub
-                    ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
-                    : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <span>{getSubIcon(sub)}</span>
-                {sub}
-                <span className="text-[10px] text-white/30">
-                  ({getSubCategoryCount(sub)})
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
-
-        <p className="text-white/40 text-sm mb-6">
-          {filteredProducts.length} products found
-          {selectedCategory !== 'All' && ` in ${selectedCategory}`}
-          {selectedSubCategory !== 'All' && ` / ${selectedSubCategory}`}
-        </p>
-
-        {filteredProducts.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-white/50">No products found</p>
-            <p className="text-white/30 text-sm mt-2">Try adjusting your search or filter</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
-            {filteredProducts.map((product) => (
-              <Link
-                href={`/shop?category=${encodeURIComponent(product.category)}&subCategory=${encodeURIComponent(product.subCategory)}`}
-                key={product.id}
-                className="block"
-              >
-                <div className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all duration-500 cursor-pointer">
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
-                      <p className="text-white/60 text-[10px] uppercase tracking-wider">
-                        {product.category} / {product.subCategory}
-                      </p>
-                    </div>
-                    {product.category === 'Sale' && (
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-red-500/80 text-white text-xs font-medium">
-                        SALE
-                      </span>
-                    )}
-                    {product.category === 'New In' && (
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-blue-500/80 text-white text-xs font-medium">
-                        NEW
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-4 sm:p-5">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-white/50 text-xs uppercase tracking-wider">{product.category}</p>
-                        <h3 className="text-white font-semibold text-sm sm:text-lg mt-1">{product.name}</h3>
-                      </div>
-                      <span className="text-[#d4af37] font-bold text-base sm:text-xl">${product.price}</span>
-                    </div>
-                    <div className="flex items-center gap-1 mt-2 text-yellow-400 text-sm">
-                      <FaStar /> <span className="text-white/80 text-xs">{product.rating}</span>
-                      <span className="text-white/30 text-xs ml-2">({product.reviews})</span>
-                    </div>
+            <div className="space-y-6">
+              {/* Search */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                <h3 className="text-white/70 text-sm font-medium mb-3 flex items-center gap-2">
+                  <FaSearch className="text-[#d4af37]" />
+                  Search Products
+                </h3>
+                <form onSubmit={handleSearch} className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-2.5 pr-10 text-white placeholder-white/30 focus:border-[#d4af37]/50 outline-none transition text-sm"
+                  />
+                  {searchTerm && (
                     <button
-                      onClick={(e) => handleAddToBag(e, product)}
-                      className="mt-4 w-full py-2 sm:py-2.5 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition border border-white/20 text-xs sm:text-sm"
+                      type="button"
+                      onClick={clearSearch}
+                      className="absolute right-10 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition"
                     >
-                      Add to Bag
+                      <FaTimes />
                     </button>
+                  )}
+                  <button
+                    type="submit"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg bg-[#d4af37] text-black text-xs font-medium hover:bg-[#c5a028] transition"
+                  >
+                    Go
+                  </button>
+                </form>
+              </div>
+
+              {/* Categories */}
+              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                <h3 className="text-white/70 text-sm font-medium mb-3 flex items-center gap-2">
+                  <span>📂</span>
+                  Categories
+                </h3>
+                <div className="space-y-1.5">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => {
+                        updateCategory(category, 'All')
+                        setIsSidebarOpen(false)
+                      }}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition text-sm ${
+                        selectedCategory === category
+                          ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
+                          : 'text-white/60 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span>{getIcon(category)}</span>
+                        {category === 'NewIn' ? 'New In' : category}
+                      </span>
+                      <span className="text-xs bg-white/10 px-2 py-0.5 rounded-full">
+                        {getProductCount(category)}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sub-Categories */}
+              {selectedCategory !== 'All' && getSubCategoriesList().length > 0 && (
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                  <h3 className="text-white/70 text-sm font-medium mb-3 flex items-center gap-2">
+                    <span>📋</span>
+                    Sub-Categories
+                  </h3>
+                  <div className="space-y-1.5">
+                    <button
+                      onClick={() => {
+                        updateCategory(selectedCategory, 'All')
+                        setIsSidebarOpen(false)
+                      }}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition text-sm ${
+                        selectedSubCategory === 'All'
+                          ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
+                          : 'text-white/60 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span>📋 All</span>
+                      <span className="text-xs bg-white/10 px-2 py-0.5 rounded-full">
+                        {getSubCategoryCount('All')}
+                      </span>
+                    </button>
+                    {getSubCategoriesList().map((sub) => (
+                      <button
+                        key={sub}
+                        onClick={() => {
+                          updateCategory(selectedCategory, sub)
+                          setIsSidebarOpen(false)
+                        }}
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition text-sm ${
+                          selectedSubCategory === sub
+                            ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
+                            : 'text-white/60 hover:bg-white/5 hover:text-white'
+                        }`}
+                      >
+                        <span className="flex items-center gap-2">
+                          <span>{getSubIcon(sub)}</span>
+                          {sub}
+                        </span>
+                        <span className="text-xs bg-white/10 px-2 py-0.5 rounded-full">
+                          {getSubCategoryCount(sub)}
+                        </span>
+                      </button>
+                    ))}
                   </div>
                 </div>
-              </Link>
-            ))}
+              )}
+
+              {/* Clear Filters */}
+              {selectedCategory !== 'All' && (
+                <button
+                  onClick={() => {
+                    setSelectedCategory('All')
+                    setSelectedSubCategory('All')
+                    setSearchTerm('')
+                    router.push('/shop')
+                    setIsSidebarOpen(false)
+                  }}
+                  className="w-full py-2.5 rounded-xl border border-white/10 text-white/50 hover:bg-white/5 hover:text-white transition text-sm"
+                >
+                  Clear All Filters
+                </button>
+              )}
+            </div>
+          </aside>
+
+          {/* ===== PRODUCTS ===== */}
+          <div className="flex-1">
+            {/* Results Info */}
+            <div className="flex justify-between items-center mb-6">
+              <p className="text-white/40 text-sm">
+                {filteredProducts.length} products found
+                {selectedCategory !== 'All' && ` in ${selectedCategory === 'NewIn' ? 'New In' : selectedCategory}`}
+                {selectedSubCategory !== 'All' && ` / ${selectedSubCategory}`}
+              </p>
+            </div>
+
+            {/* Products Grid */}
+            {filteredProducts.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-white/50">No products found</p>
+                <p className="text-white/30 text-sm mt-2">Try adjusting your search or filter</p>
+              </div>
+            ) : (
+              <div className={`grid gap-4 sm:gap-5 ${viewMode === 'grid' ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+                {filteredProducts.map((product) => (
+                  <Link
+                    href={`/shop?category=${encodeURIComponent(product.category)}&subCategory=${encodeURIComponent(product.subCategory)}`}
+                    key={product.id}
+                    className="block"
+                  >
+                    <div className={`group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/40 transition-all duration-500 cursor-pointer ${viewMode === 'list' ? 'flex gap-4' : ''}`}>
+                      <div className={`relative overflow-hidden ${viewMode === 'list' ? 'w-48 h-48 flex-shrink-0' : 'aspect-[3/4]'}`}>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                          <p className="text-white/60 text-[10px] uppercase tracking-wider">
+                            {product.category} / {product.subCategory}
+                          </p>
+                        </div>
+                        {product.category === 'Sale' && (
+                          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-red-500/80 text-white text-[10px] font-medium">
+                            SALE
+                          </span>
+                        )}
+                        {product.category === 'New In' && (
+                          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-blue-500/80 text-white text-[10px] font-medium">
+                            NEW
+                          </span>
+                        )}
+                      </div>
+                      <div className={`p-4 ${viewMode === 'list' ? 'flex-1 flex flex-col justify-center' : ''}`}>
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <p className="text-white/50 text-xs uppercase tracking-wider">{product.category}</p>
+                            <h3 className="text-white font-semibold text-sm sm:text-lg mt-1">{product.name}</h3>
+                          </div>
+                          <span className="text-[#d4af37] font-bold text-base sm:text-xl">${product.price}</span>
+                        </div>
+                        <div className="flex items-center gap-1 mt-2 text-yellow-400 text-sm">
+                          <FaStar /> <span className="text-white/80 text-xs">{product.rating}</span>
+                          <span className="text-white/30 text-xs ml-2">({product.reviews})</span>
+                        </div>
+                        <button
+                          onClick={(e) => handleAddToBag(e, product)}
+                          className="mt-4 w-full py-2 sm:py-2.5 rounded-full bg-white/10 text-white font-medium hover:bg-white/20 transition border border-white/20 text-xs sm:text-sm"
+                        >
+                          Add to Bag
+                        </button>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </section>
+        </div>
+      </div>
 
       <footer className="border-t border-white/5 py-12 px-4 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white/50 text-sm">
