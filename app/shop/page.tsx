@@ -270,9 +270,9 @@ export default function Shop() {
           </div>
         )}
 
-        {/* Category Filters with Sub-Categories */}
-        <div className="space-y-4 mb-6">
-          {/* All Category */}
+        {/* ===== CATEGORY FILTERS WITH VERTICAL SUB-CATEGORIES ===== */}
+        <div className="space-y-3 mb-6">
+          {/* All Category - Always visible */}
           <button
             onClick={() => updateCategory('All', 'All')}
             className={`px-4 py-2 rounded-full text-sm transition ${
@@ -284,13 +284,15 @@ export default function Shop() {
             🛍️ All ({getProductCount('All')})
           </button>
 
-          {/* Other Categories with Sub-Categories */}
+          {/* Each Category with its Sub-Categories - VERTICAL LIST */}
           {categories.filter(c => c !== 'All').map((category) => {
             const isActive = selectedCategory === category
             const subCategoriesList = getSubCategoriesList(category)
+            const displayName = category === 'NewIn' ? 'New In' : category
             
             return (
               <div key={category} className="space-y-1">
+                {/* Main Category Button */}
                 <button
                   onClick={() => updateCategory(category, 'All')}
                   className={`px-4 py-2 rounded-full text-sm transition ${
@@ -299,17 +301,17 @@ export default function Shop() {
                       : 'bg-white/5 text-white/50 hover:bg-white/20 hover:text-white'
                   }`}
                 >
-                  {getIcon(category)} {category === 'NewIn' ? 'New In' : category} ({getProductCount(category)})
+                  {getIcon(category)} {displayName} ({getProductCount(category)})
                 </button>
                 
-                {/* Sub-Categories - shown when this category is active */}
+                {/* Sub-Categories - Vertical List (shown when category is active) */}
                 {isActive && subCategoriesList.length > 0 && (
-                  <div className="flex flex-wrap gap-2 ml-4 pl-4 border-l-2 border-[#d4af37]/30">
+                  <div className="ml-6 pl-4 border-l-2 border-[#d4af37]/30 space-y-1">
                     {subCategoriesList.map((sub) => (
                       <button
                         key={sub}
                         onClick={() => updateCategory(category, sub)}
-                        className={`px-3 py-1.5 rounded-full text-xs transition ${
+                        className={`block w-full text-left px-3 py-1.5 rounded-lg text-sm transition ${
                           selectedSubCategory === sub
                             ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30'
                             : 'text-white/40 hover:text-white/70 hover:bg-white/5'
